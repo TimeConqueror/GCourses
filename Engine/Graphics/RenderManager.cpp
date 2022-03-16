@@ -114,7 +114,7 @@ void RenderManager::beginRender() {
 	context->RSSetViewports(1, &viewport);
 	context->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), nullptr);
 
-	float color[] = {1.0F, 1.0f, 1.0f, 1.0f};
+	float color[] = {0.0F, 0.0f, 0.0f, 1.0f};
 	context->ClearRenderTargetView(renderTargetView.Get(), color);
 }
 

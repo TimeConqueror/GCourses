@@ -91,4 +91,6 @@ void Ball::reset(bool leftWon) {
 	setY(-height / 2);
 
 	setVelocity(0.035, 0);
+
+	if (!leftWon) vel.x = -vel.x;
 }

@@ -97,5 +97,6 @@ enum Keyboard {
 	KEY_NUM_SIX = 102,
 	KEY_NUM_SEVEN = 103,
 	KEY_NUM_EIGHT = 104,
-	KEY_NUM_NINE = 105
+	KEY_NUM_NINE = 105,
+	KEY_SPACE = 32,
 };

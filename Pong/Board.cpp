@@ -13,7 +13,6 @@ float Board::getHeight() const {
 }
 
 void Board::move(float amount, float partialTick) {
-	std::cout << partialTick << std::endl;
 	setY(std::min<float>(std::max<float>(getY() + amount, -1), 1 - height));
 }
 

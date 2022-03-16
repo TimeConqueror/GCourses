@@ -14,6 +14,8 @@ void Pong::init() {
 void Pong::tick() {
 	handleInput();
 
+	if (paused) return;
+
 	ball.tick(leftBoard, rightBoard, getPartialTick());
 
 	handleWinState();
@@ -43,6 +45,12 @@ void Pong::handleWinState() {
 
 void Pong::handleInput() {
 	InputController& inputController = getInputController();
+
+	if (inputController.isKeyDown(Keyboard::KEY_SPACE)) {
+		paused = !paused;
+	}
+
+	if (paused) return;
 
 	float speed = 0.05F;
 	if(inputController.isKeyDown(Keyboard::KEY_W)) {
