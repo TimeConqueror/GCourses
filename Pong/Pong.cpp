@@ -1,12 +1,58 @@
 #include "Pong.h"
+#include "../Engine/Keyboard.h"
 
 void Pong::init() {
 	RenderManager& renderManager = getRenderManager();
 	std::cout << "Initializing..." << std::endl;
-	renderManager.addRenderable("left", leftBoard);
-	renderManager.addRenderable("right", rightBoard);
+	renderManager.addRenderable("left_paddle", leftBoard);
+	renderManager.addRenderable("right_paddle", rightBoard);
+	renderManager.addRenderable("ball", ball);
+
+	ball.reset();
 }
 
 void Pong::tick() {
+	handleInput();
 
+	ball.tick(leftBoard, rightBoard, getPartialTick());
+
+	handleWinState();
 }
+
+void Pong::handleWinState() {
+	WinState winState = ball.checkWin();
+	if (winState == WinState::PLAYING) {
+		return;
+	}
+
+	if (winState == WinState::LEFT_WON) {
+		std::cout << "Player on the Left Side won the round!" << std::endl;
+		leftScore++;
+	} else {
+		std::cout << "Player on the Right Side won the round!" << std::endl;
+		rightScore++;
+	}
+
+	std::cout << "Scores: " << leftScore << ":" << rightScore << std::endl;
+
+	leftBoard.reset();
+	rightBoard.reset();
+
+	ball.reset(winState == WinState::LEFT_WON);
+}
+
+void Pong::handleInput() {
+	InputController& inputController = getInputController();
+
+	float speed = 0.05F;
+	if(inputController.isKeyDown(Keyboard::KEY_W)) {
+		leftBoard.move(speed, getPartialTick());
+	} else if (inputController.isKeyDown(Keyboard::KEY_S)) {
+		leftBoard.move(-speed, getPartialTick());
+	} else if (inputController.isKeyDown(Keyboard::KEY_ARROW_UP)) {
+		rightBoard.move(speed, getPartialTick());
+	} else if (inputController.isKeyDown(Keyboard::KEY_ARROW_DOWN)) {
+		rightBoard.move(-speed, getPartialTick());
+	}
+}
+

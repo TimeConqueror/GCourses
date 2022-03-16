@@ -11,3 +11,13 @@ float Board::getWidth() const {
 float Board::getHeight() const {
 	return height;
 }
+
+void Board::move(float amount, float partialTick) {
+	std::cout << partialTick << std::endl;
+	setY(std::min<float>(std::max<float>(getY() + amount, -1), 1 - height));
+}
+
+void Board::reset() {
+	setX(left ? -1 + 0.01F : 1 - width - 0.01F);
+	setY(-height / 2);
+}

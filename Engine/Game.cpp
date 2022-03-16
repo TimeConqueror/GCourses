@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Rand.h"
 #include <iostream>
 
 Game* Game::instance = nullptr;
@@ -9,8 +10,9 @@ Game::Game(LPCWSTR name, uint width, uint height, int ticksPerSecond):
 	window(inputController, name, width, height),
 	renderManager(window),
 	timer(ticksPerSecond) {
-
+	
 	setInstance(this);
+	Rand::init();
 };
 
 void Game::initInternals() {
@@ -66,6 +68,10 @@ Window& Game::getWindow() {
 
 RenderManager& Game::getRenderManager() {
 	return renderManager;
+}
+
+InputController& Game::getInputController() {
+	return inputController;
 }
 
 Game* Game::getInstance() {

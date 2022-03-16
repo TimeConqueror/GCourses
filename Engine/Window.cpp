@@ -66,7 +66,6 @@ LRESULT Window::handleMessage(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpa
 		case WM_KEYDOWN:
 		{
 			uint keyCode = static_cast<uint>(wparam);
-			std::cout << keyCode << std::endl;
 			window->inputController.setKeyPressed(keyCode);
 			return 0;
 		}

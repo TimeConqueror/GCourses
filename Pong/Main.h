@@ -6,7 +6,9 @@
 class Main {
 };
 
-void main() {
+int main() {
 	Pong g(800, 600);
 	g.run();
+
+	return 0;
 }

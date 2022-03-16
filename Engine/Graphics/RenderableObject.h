@@ -5,6 +5,7 @@
 #include "ConstantBuffer.h"
 #include "ConstantBufferTypes.h"
 #include "RenderType.h"
+#include "Shape.h"
 
 class RenderManager;
 
@@ -18,7 +19,8 @@ class RenderableObject {
 	float y = 0;
 	bool shouldUpdate = false;
 public:
-	RenderableObject(std::vector<Vertex> vertices, const std::vector<uint>& indexes);
+	RenderableObject(Shape& shape);
+	RenderableObject(Shape&& shape);
 
 	void init(RenderManager& renderManager);
 	void transform(RenderManager& renderManager, ConstantBufferData&& data);

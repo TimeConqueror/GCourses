@@ -122,11 +122,11 @@ void RenderManager::render() {
 	beginRender();
 
 	if (renderObjects.empty()) {
-		std::cout << "Nothing to render..." << std::endl;
+		//std::cout << "Nothing to render..." << std::endl;
 	}
 
 	for (auto& it : renderObjects) {
-		std::cout << "Rendering '" << it.first << "'..." << std::endl;
+		//std::cout << "Rendering '" << it.first << "'..." << std::endl;
 		auto obj = it.second;
 		TRIANGLE_POS_COLOR.render(*this, obj);
 	}

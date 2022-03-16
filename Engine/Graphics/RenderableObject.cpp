@@ -1,9 +1,12 @@
 #include "RenderManager.h"
 #include "RenderableObject.h"
 
-RenderableObject::RenderableObject(std::vector<Vertex> vertices, const std::vector<uint>& indices):
-vertexBuffer(vertices), indexBuffer(indices)
-{
+RenderableObject::RenderableObject(Shape& shape):
+vertexBuffer(shape.getVertices()), indexBuffer(shape.getIndexes())
+{}
+
+RenderableObject::RenderableObject(Shape&& shape) :
+	vertexBuffer(shape.getVertices()), indexBuffer(shape.getIndexes()) {
 }
 
 void RenderableObject::init(RenderManager& renderManager) {

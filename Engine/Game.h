@@ -22,7 +22,7 @@ private:
 	RenderManager renderManager;
 	Timer timer;
 public:
-	Game(LPCWSTR name, uint width, uint height, int ticksPerSecond = 20);
+	Game(LPCWSTR name, uint width, uint height, int ticksPerSecond = 60);
 
 	static Game* getInstance();
 	static bool isReady();
@@ -31,6 +31,7 @@ public:
 
 	Window& getWindow();
 	RenderManager& getRenderManager();
+	InputController& getInputController();
 
 	/**
      * Singletons should not be cloned.

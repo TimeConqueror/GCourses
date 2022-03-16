@@ -20,4 +20,8 @@ public:
 			throw RenderException(result);
 		}
 	}
+
+	float coerceInRange(float number, float min, float max) {
+		return min(max(number, min), max);
+	}
 };
