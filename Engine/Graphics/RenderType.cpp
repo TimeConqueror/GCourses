@@ -10,6 +10,8 @@ RenderType::RenderType(LPCWSTR shaderPath, VertexFormat& vertexFormat): shaderPa
 void RenderType::render(RenderManager& renderManager, RenderableObject& object) {
 	pushShaders(renderManager);//TODO move outside to render many same-arch objects
 
+	object.prepare(renderManager);
+
 	object.vertexBuffer.push(renderManager);
 	object.indexBuffer.push(renderManager);
 	object.constantBuffer.push(renderManager);

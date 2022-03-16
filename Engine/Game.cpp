@@ -13,7 +13,7 @@ Game::Game(LPCWSTR name, uint width, uint height, int ticksPerSecond):
 	setInstance(this);
 };
 
-void Game::init() {
+void Game::initInternals() {
 	window.init();
 
 	try {
@@ -24,6 +24,9 @@ void Game::init() {
 }
 
 void Game::run() {
+	initInternals();
+	init();
+
 	timer.start();
 
 	MSG msg = {};
@@ -47,10 +50,6 @@ void Game::run() {
 			shouldExit = true;
 		}
 	}
-}
-
-void Game::tick() {
-	//std::cout << "Key Pressed: " << inputController.isKeyDown(87) << std::endl;
 }
 
 bool Game::isReady() {

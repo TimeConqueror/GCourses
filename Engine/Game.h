@@ -26,11 +26,7 @@ public:
 
 	static Game* getInstance();
 	static bool isReady();
-
-	void init();
 	void run();
-	virtual void tick();
-
 	float getPartialTick();
 
 	Window& getWindow();
@@ -44,6 +40,12 @@ public:
 	 * Singletons should not be assignable.
 	 */
 	void operator=(const Game&) = delete;
+
+protected:
+	virtual void init() = 0;
+	virtual void tick() = 0;
+
 private:
 	static void setInstance(Game* game);
+	void initInternals();
 };

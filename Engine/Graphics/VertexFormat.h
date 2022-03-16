@@ -9,6 +9,7 @@ struct VertexFormatElement {
 	const DXGI_FORMAT format;
 };
 
+//Vertices are counterclock-wise
 class VertexFormat {
 private:
 	std::vector<D3D11_INPUT_ELEMENT_DESC> elements;
@@ -21,17 +22,12 @@ public:
 	}
 
 	VertexFormat& add(const VertexFormatElement& format) {
-		uint alignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-		if (elements.size() > 1) {
-			alignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;// bug with format size > 2?
-		}
-
 		D3D11_INPUT_ELEMENT_DESC desc = {
 				format.semanticName,
 				0,
 				format.format,
 				0,
-				alignedByteOffset,
+				D3D11_APPEND_ALIGNED_ELEMENT,
 				D3D11_INPUT_PER_VERTEX_DATA,
 				0
 		};

@@ -17,7 +17,7 @@ public:
 
 	void init() {
 		for (auto it = buffers.begin(); it != buffers.end(); ++it) {
-			it->first.init();
+			//it->first.init(/);
 		}
 	}
 };

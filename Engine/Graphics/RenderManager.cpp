@@ -6,7 +6,7 @@ static RenderType TRIANGLE_POS_COLOR{
 	VertexFormat(D3D_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	.add({
 			"POSITION",
-			DXGI_FORMAT_R32G32B32_FLOAT
+			DXGI_FORMAT_R32G32B32A32_FLOAT
 		 })
 	.add({
 			"COLOR",
@@ -64,7 +64,7 @@ HRESULT RenderManager::initRenderTarget() {
 
 HRESULT RenderManager::initRasterizationState() {
 	CD3D11_RASTERIZER_DESC rastDesc = {};
-	rastDesc.CullMode = D3D11_CULL_BACK;
+	rastDesc.CullMode = D3D11_CULL_NONE;
 	rastDesc.FillMode = D3D11_FILL_SOLID;
 
 	return device->CreateRasterizerState(&rastDesc, rastState.GetAddressOf());
@@ -73,28 +73,18 @@ HRESULT RenderManager::initRasterizationState() {
 uint width = 800;
 uint height = 600;
 
-std::vector<Vertex> points = {
-		Vertex(0.5f, 0.5f, 1.0f),	
-		Vertex(0.9f, 0.0f, 0.9f),
-		Vertex(-1.0f, 1.0f, 1.0f)
-};
-
-std::vector<uint> indices = {1,2,0};
-auto ro = RenderableObject(points, indices);
-
-
 void RenderManager::init() {
 	Utils::checkValid(initSwapChain());
 	Utils::checkValid(initRenderTarget());
 	Utils::checkValid(initRasterizationState());
 
 	TRIANGLE_POS_COLOR.init(*this);	
-	addRenderable("testo", ro);
 }
 
-void RenderManager::addRenderable(std::string name,RenderableObject& object) {
+void RenderManager::addRenderable(std::string name, RenderableObject& object) {
 	object.init(*this);
 	renderObjects.insert(std::pair<std::string, RenderableObject&>(name, object));
+	std::cout << "Added new render object, current size: " << renderObjects.size() << std::endl;
 }
 
 void RenderManager::removeRenderable(std::string name) {
@@ -131,10 +121,13 @@ void RenderManager::beginRender() {
 void RenderManager::render() {
 	beginRender();
 
+	if (renderObjects.empty()) {
+		std::cout << "Nothing to render..." << std::endl;
+	}
+
 	for (auto& it : renderObjects) {
+		std::cout << "Rendering '" << it.first << "'..." << std::endl;
 		auto obj = it.second;
-		auto data = ConstantBufferData(0.5F, 0.5F);
-		obj.transform(*this, &data);
 		TRIANGLE_POS_COLOR.render(*this, obj);
 	}
 

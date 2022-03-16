@@ -10,11 +10,13 @@ struct Vertex {
 	DirectX::XMFLOAT4 pos;
 	DirectX::XMFLOAT4 color;
 
-	Vertex(float x, float y, float z, float a, float r, float g, float b):pos(x,y,z, 1.0F), color(a,r,g,b) {
+	Vertex(float x, float y, float z, float r, float g, float b, float a):pos(x,y,z, 1.0F), color(r,g,b,a) {
 
 	}
 
-	Vertex(float x, float y, float z): Vertex(x, y, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F) {}
+	Vertex(float x, float y, float z): Vertex(x, y, z, 0.0F, 1.0F, 1.0F, 1.0F) {}
+
+	Vertex(float x, float y): Vertex(x, y, 1.0F) {}
 };
 
 class VertexBuffer: public Buffer {
