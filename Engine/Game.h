@@ -1,16 +1,10 @@
 #pragma once
 #include "Window.h"
 #include "Timer.h"
-#include "Graphics/RenderManager.h"
 #include "InputController.h"
 #include <windows.h>
-#include <WinUser.h>
-#include <wrl.h>
-#include <d3d.h>
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <directxmath.h>
-#include <chrono>
+
+#include "Graphics/RenderManager.h"
 
 class Game {
 private:

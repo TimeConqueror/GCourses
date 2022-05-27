@@ -15,32 +15,30 @@ void RenderableObject::init(RenderManager& renderManager) {
 	constantBuffer.init(renderManager.getDevice());
 }
 
-void RenderableObject::transform(RenderManager& renderManager, ConstantBufferData&& data) {
+void RenderableObject::transform(RenderManager& renderManager, DirectX::SimpleMath::Matrix& data) {
 	constantBuffer.update(renderManager, &data);
 }
 
-
-void RenderableObject::setX(float x) {
-	this->x = x;
-	shouldUpdate = true;
+void RenderableObject::setPos(const DirectX::SimpleMath::Vector3& vec) {
+	this->pos.x = vec.x;
+	this->pos.y = vec.y;
+	this->pos.z = vec.z;
 }
 
-void RenderableObject::setY(float y) {
-	this->y = y;
-	shouldUpdate = true;
+void RenderableObject::setPos(const float x, const float y, const float z) {
+	this->pos.x = x;
+	this->pos.y = y;
+	this->pos.z = z;
 }
 
-float RenderableObject::getX() const {
-	return x;
-}
-
-float RenderableObject::getY() const {
-	return y;
+DirectX::SimpleMath::Vector3& RenderableObject::getPos() {
+	return pos;
 }
 
 void RenderableObject::prepare(RenderManager& renderManager) {
-	if (shouldUpdate) {
-		transform(renderManager, ConstantBufferData(x, y));
-		shouldUpdate = false;
-	}
+	auto camera = renderManager.getCamera();
+	std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
+	auto wvp = DirectX::SimpleMath::Matrix::CreateTranslation(pos) * camera->viewMatrix * camera->projMatrix;
+
+	transform(renderManager, wvp);
 }

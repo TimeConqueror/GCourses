@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "InputController.h"
 #include <windows.h>
+#include <Windowsx.h>
 
 class Window {
 private:

@@ -3,7 +3,7 @@
 #include "../Engine/Rand.h"
 #include "../Engine/Vertex2f.h"
 #define _USE_MATH_DEFINES
-#include <math.h>
+#include <MathHelper.h>
 
 Ball::Ball(): RenderableObject(Shape::quad(Board::ratioX, Board::ratioX * 800.0F / 600)), width(Board::ratioX), height(Board::ratioX * 800.0F / 600) {
 	reset();

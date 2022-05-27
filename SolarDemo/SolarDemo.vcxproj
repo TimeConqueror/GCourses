@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2c97db62-b300-4e48-9a32-971bd10b8cff}</ProjectGuid>
-    <RootNamespace>Engine</RootNamespace>
+    <ProjectGuid>{37d8628e-e65b-42a1-a12a-c7311fc13b93}</ProjectGuid>
+    <RootNamespace>SolarDemo</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -79,15 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);.</ExternalIncludePath>
-    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <IncludePath>../Engine/;../Graphics/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);.</ExternalIncludePath>
-    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <IncludePath>../Engine/;../Graphics/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,11 +118,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,67 +133,29 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Graphics\CameraHandler.cpp" />
-    <ClCompile Include="Graphics\Camera.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GCoursesApp.cpp" />
-    <ClCompile Include="Graphics\Buffer.cpp" />
-    <ClCompile Include="Graphics\ConstantBuffer.cpp" />
-    <ClCompile Include="Graphics\IndexBuffer.cpp" />
-    <ClCompile Include="Graphics\RenderableObject.cpp" />
-    <ClCompile Include="Graphics\RenderManager.cpp" />
-    <ClCompile Include="Graphics\RenderType.cpp" />
-    <ClCompile Include="Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="InputController.cpp" />
-    <ClCompile Include="Graphics\Shape.cpp" />
-    <ClCompile Include="MathHelper.cpp" />
-    <ClCompile Include="Rand.cpp" />
-    <ClCompile Include="Vertex2f.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="PlaneComponent.h" />
+    <ClInclude Include="SolarDemo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graphics\CameraHandler.h" />
-    <ClInclude Include="Graphics\Camera.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Graphics\Buffer.h" />
-    <ClInclude Include="Graphics\ConstantBuffer.h" />
-    <ClInclude Include="Graphics\ConstantBufferTypes.h" />
-    <ClInclude Include="Graphics\IndexBuffer.h" />
-    <ClInclude Include="Graphics\RenderableObject.h" />
-    <ClInclude Include="Graphics\RenderBuffers.h" />
-    <ClInclude Include="Graphics\RenderManager.h" />
-    <ClInclude Include="Graphics\RenderType.h" />
-    <ClInclude Include="Graphics\VertexBuffer.h" />
-    <ClInclude Include="Graphics\VertexFormat.h" />
-    <ClInclude Include="InputController.h" />
-    <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="Graphics\Shape.h" />
-    <ClInclude Include="MathHelper.h" />
-    <ClInclude Include="Rand.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Utils.h" />
-    <ClInclude Include="Vertex2f.h" />
-    <ClInclude Include="Window.h" />
-    <ClInclude Include="resource.h" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PlaneComponent.cpp" />
+    <ClCompile Include="SolarDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Engine.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="..\Shaders\MyVeryFirstShader.hlsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </FxCompile>
+    <ProjectReference Include="..\Engine\Engine.vcxproj">
+      <Project>{2c97db62-b300-4e48-9a32-971bd10b8cff}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

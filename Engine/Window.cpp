@@ -81,6 +81,11 @@ LRESULT Window::handleMessage(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpa
 			window->height = HIWORD(lparam);
 			return 0;
 		}
+		case WM_MOUSEMOVE:
+		{
+			window->inputController.setMousePos(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+			return 0;
+		}
 		default:
 		{
 			return DefWindowProc(hwnd, message, wparam, lparam);

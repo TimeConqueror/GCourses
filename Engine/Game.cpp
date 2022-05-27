@@ -19,7 +19,7 @@ void Game::initInternals() {
 	window.init();
 
 	try {
-		renderManager.init();
+		renderManager.init(this);
 	} catch (RenderException& e) {
 		throw std::runtime_error("Render System Initialization Error. Error Code: " + e.errorCode);
 	}
@@ -45,7 +45,8 @@ void Game::run() {
 			this->tick();
 		}
 
-		this->renderManager.render();
+		inputController.update();
+		this->renderManager.render(getPartialTick());
 
 		// If windows signals to end the application then exit out.
 		if (msg.message == WM_QUIT) {

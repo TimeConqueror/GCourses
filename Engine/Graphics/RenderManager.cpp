@@ -3,7 +3,7 @@
 
 static RenderType TRIANGLE_POS_COLOR{
 	L"../Shaders/MyVeryFirstShader.hlsl", 
-	VertexFormat(D3D_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	VertexFormat(D3D_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINELIST)
 	.add({
 			"POSITION",
 			DXGI_FORMAT_R32G32B32A32_FLOAT
@@ -73,10 +73,13 @@ HRESULT RenderManager::initRasterizationState() {
 uint width = 800;
 uint height = 600;
 
-void RenderManager::init() {
+void RenderManager::init(Game* game) {
 	Utils::checkValid(initSwapChain());
 	Utils::checkValid(initRenderTarget());
 	Utils::checkValid(initRasterizationState());
+
+	camera = new Camera(game);
+	cameraHandler = new CameraHandler(game, camera);
 
 	TRIANGLE_POS_COLOR.init(*this);	
 }
@@ -99,6 +102,14 @@ ID3D11DeviceContext* RenderManager::getContext() {
 	return context.Get();
 }
 
+Camera* RenderManager::getCamera() {
+	return camera;
+}
+
+CameraHandler* RenderManager::getCameraHandler() {
+	return cameraHandler;
+}
+
 void RenderManager::beginRender() {
 	context->ClearState();
 	context->RSSetState(rastState.Get());	
@@ -118,7 +129,9 @@ void RenderManager::beginRender() {
 	context->ClearRenderTargetView(renderTargetView.Get(), color);
 }
 
-void RenderManager::render() {
+void RenderManager::render(float partialTick) {
+	cameraHandler->update(partialTick);
+
 	beginRender();
 
 	if (renderObjects.empty()) {

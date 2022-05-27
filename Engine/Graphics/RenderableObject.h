@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SimpleMath.h>
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
@@ -14,20 +15,20 @@ class RenderableObject {
 
 	VertexBuffer vertexBuffer;
 	IndexBuffer indexBuffer;
-	ConstantBuffer constantBuffer;
-	float x = 0;
-	float y = 0;
+	ConstantBuffer<DirectX::SimpleMath::Matrix> constantBuffer;
+
+	DirectX::SimpleMath::Vector3 pos;
 	bool shouldUpdate = false;
 public:
 	RenderableObject(Shape& shape);
 	RenderableObject(Shape&& shape);
 
 	void init(RenderManager& renderManager);
-	void transform(RenderManager& renderManager, ConstantBufferData&& data);
-	void setX(float x);
-	void setY(float y);
-	float getX() const;
-	float getY() const;
+	void transform(RenderManager& renderManager, DirectX::SimpleMath::Matrix& data);
+	void setPos(const DirectX::SimpleMath::Vector3& vec);
+	void setPos(float x, float y, float z);
+
+	DirectX::SimpleMath::Vector3& getPos();
 private:
 	void prepare(RenderManager& renderManager);
 };

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pong", "Pong\Pong.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{2C97DB62-B300-4E48-9A32-971BD10B8CFF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SolarDemo", "SolarDemo\SolarDemo.vcxproj", "{37D8628E-E65B-42A1-A12A-C7311FC13B93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{2C97DB62-B300-4E48-9A32-971BD10B8CFF}.Release|x64.Build.0 = Release|x64
 		{2C97DB62-B300-4E48-9A32-971BD10B8CFF}.Release|x86.ActiveCfg = Release|Win32
 		{2C97DB62-B300-4E48-9A32-971BD10B8CFF}.Release|x86.Build.0 = Release|Win32
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Debug|x64.ActiveCfg = Debug|x64
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Debug|x64.Build.0 = Debug|x64
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Debug|x86.ActiveCfg = Debug|Win32
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Debug|x86.Build.0 = Debug|Win32
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Release|x64.ActiveCfg = Release|x64
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Release|x64.Build.0 = Release|x64
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Release|x86.ActiveCfg = Release|Win32
+		{37D8628E-E65B-42A1-A12A-C7311FC13B93}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
