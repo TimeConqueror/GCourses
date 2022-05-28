@@ -1,12 +1,12 @@
 #include "RenderManager.h"
 #include "RenderableObject.h"
 
-RenderableObject::RenderableObject(Shape& shape):
-vertexBuffer(shape.getVertices()), indexBuffer(shape.getIndexes())
-{}
+RenderableObject::RenderableObject(RenderType* renderType, Shape& shape) :
+	vertexBuffer(shape.getVertices()), indexBuffer(shape.getIndexes()), renderType(renderType) {
+}
 
-RenderableObject::RenderableObject(Shape&& shape) :
-	vertexBuffer(shape.getVertices()), indexBuffer(shape.getIndexes()) {
+RenderableObject::RenderableObject(RenderType* renderType, Shape&& shape) :
+	vertexBuffer(shape.getVertices()), indexBuffer(shape.getIndexes()), renderType(renderType) {
 }
 
 void RenderableObject::init(RenderManager& renderManager) {
@@ -42,4 +42,8 @@ void RenderableObject::prepare(RenderManager& renderManager) {
 	wvp = wvp.Transpose();
 
 	transform(renderManager, wvp);
+}
+
+RenderType* RenderableObject::getRenderType() {
+	return renderType;
 }

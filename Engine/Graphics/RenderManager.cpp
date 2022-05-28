@@ -1,4 +1,6 @@
 #include "RenderManager.h"
+
+#include "RenderTypes.h"
 #include "../Utils.h"
 
 static RenderType TRIANGLE_POS_COLOR{
@@ -41,7 +43,7 @@ HRESULT RenderManager::initSwapChain() {
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
-		D3D11_CREATE_DEVICE_DEBUG,
+		D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		featureLevel,
 		1,
 		D3D11_SDK_VERSION,
@@ -54,9 +56,44 @@ HRESULT RenderManager::initSwapChain() {
 	return result;
 }
 
+HRESULT RenderManager::initDepthBuffer() {
+	D3D11_TEXTURE2D_DESC depthTexDesc;
+	depthTexDesc.Width = window.getWidth();
+	depthTexDesc.Height = window.getHeight();
+	depthTexDesc.MipLevels = 1;
+	depthTexDesc.ArraySize = 1;
+	depthTexDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthTexDesc.SampleDesc.Count = 1;
+	depthTexDesc.SampleDesc.Quality = 0;
+	depthTexDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthTexDesc.CPUAccessFlags = 0;
+	depthTexDesc.MiscFlags = 0;
+
+	return device->CreateTexture2D(&depthTexDesc, nullptr, depthBuffer.GetAddressOf());
+}
+
+HRESULT RenderManager::initDepthStencilView() {
+	// D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc = {};
+	// depthStencilViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
+	// depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	// depthStencilViewDesc.Flags = 0;
+	// return device->CreateDepthStencilView(depthBuffer.Get(), &depthStencilViewDesc, depthView.GetAddressOf());
+	return device->CreateDepthStencilView(depthBuffer.Get(), nullptr, depthView.GetAddressOf());
+}
+
+HRESULT RenderManager::initDepthStencilState() {
+	D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
+	depthStencilDesc.DepthEnable = true;
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+
+	return device->CreateDepthStencilState(&depthStencilDesc, depthState.GetAddressOf());
+}
+
 HRESULT RenderManager::initRenderTarget() {
 	ID3D11Texture2D* backTex;
-	HRESULT res = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**) &backTex);	// __uuidof(ID3D11Texture2D)
+	HRESULT res = swapChain->GetBuffer(0, IID_ID3D11Texture2D, reinterpret_cast<void**>(&backTex));
 	Utils::checkValid(res);
 
 	return device->CreateRenderTargetView(backTex, nullptr, renderTargetView.GetAddressOf());
@@ -75,13 +112,17 @@ uint height = 600;
 
 void RenderManager::init(Game* game) {
 	Utils::checkValid(initSwapChain());
+	Utils::checkValid(initDepthBuffer());
+	Utils::checkValid(initDepthStencilView());
+	Utils::checkValid(initDepthStencilState());
 	Utils::checkValid(initRenderTarget());
 	Utils::checkValid(initRasterizationState());
 
 	camera = new Camera(game);
 	cameraHandler = new CameraHandler(game, camera);
 
-	TRIANGLE_POS_COLOR.init(*this);	
+	RenderTypes::init(*this);
+	//TRIANGLE_POS_COLOR.init(*this);	
 }
 
 void RenderManager::addRenderable(std::string name, RenderableObject& object) {
@@ -112,7 +153,8 @@ CameraHandler* RenderManager::getCameraHandler() {
 
 void RenderManager::beginRender() {
 	context->ClearState();
-	context->RSSetState(rastState.Get());	
+
+	context->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthView.Get());
 
 	D3D11_VIEWPORT viewport = {};
 	viewport.Width = static_cast<float>(window.getWidth());
@@ -123,10 +165,11 @@ void RenderManager::beginRender() {
 	viewport.MaxDepth = 1.0f;
 
 	context->RSSetViewports(1, &viewport);
-	context->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), nullptr);
+	context->RSSetState(rastState.Get());
 
 	float color[] = {0.0F, 0.0f, 0.0f, 1.0f};
 	context->ClearRenderTargetView(renderTargetView.Get(), color);
+	context->ClearDepthStencilView(depthView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0F, 0);
 }
 
 void RenderManager::render(float partialTick) {
@@ -141,7 +184,8 @@ void RenderManager::render(float partialTick) {
 	for (auto& it : renderObjects) {
 		//std::cout << "Rendering '" << it.first << "'..." << std::endl;
 		auto obj = it.second;
-		TRIANGLE_POS_COLOR.render(*this, obj);
+		obj.getRenderType()->render(*this, obj);
+		//TRIANGLE_POS_COLOR.render(*this, obj);
 	}
 
 	endRender();

@@ -19,11 +19,12 @@ struct Vertex {
 	Vertex(float x, float y): Vertex(x, y, 1.0F) {}
 };
 
+template<typename VERTEX>
 class VertexBuffer: public Buffer {
 private:
-	std::vector<Vertex> elements;
+	std::vector<VERTEX> elements;
 public:
-	VertexBuffer(std::vector<Vertex> elements);
+	VertexBuffer(std::vector<VERTEX> elements);
 
 	virtual HRESULT init(ID3D11Device* device) override;
 	virtual void push(RenderManager& renderManager) override;

@@ -43,6 +43,6 @@ void Camera::update() {
 		DirectX::XM_PIDIV2,
 		static_cast<float>(game->getWindow().getWidth()) / game->getWindow().getHeight(),
 		0.1F,
-		100.0F
+		10000.0F
 	);
 }

@@ -8,6 +8,9 @@ RenderType::RenderType(LPCWSTR shaderPath, VertexFormat& vertexFormat): shaderPa
 }
 
 void RenderType::render(RenderManager& renderManager, RenderableObject& object) {
+	//ID3D11RasterizerState* oldState;
+	//renderManager.getContext()->RSGetState(&oldState);
+	//renderManager.getContext()->RSGetState(&oldState);
 	pushShaders(renderManager);//TODO move outside to render many same-arch objects
 
 	object.prepare(renderManager);

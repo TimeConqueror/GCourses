@@ -19,6 +19,9 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> layout;
 public:
 	RenderType(LPCWSTR shaderPath, VertexFormat& vertexFormat);
+	RenderType(RenderType&& other) noexcept = default;
+	RenderType& operator=(RenderType&& other) noexcept = default;
+
 	void render(RenderManager& renderManager, RenderableObject& object);
 	void init(RenderManager& renderManager);
 	void pushShaders(RenderManager& renderManager);

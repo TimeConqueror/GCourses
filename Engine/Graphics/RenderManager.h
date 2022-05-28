@@ -16,10 +16,16 @@ class RenderManager {
 private:
 	Window& window;
 	WRL::ComPtr<ID3D11Device> device = nullptr;
-	WRL::ComPtr<ID3D11DeviceContext> context = nullptr;
 	WRL::ComPtr<IDXGISwapChain> swapChain = nullptr;
+	WRL::ComPtr<ID3D11DeviceContext> context = nullptr;
+
+	WRL::ComPtr<ID3D11Texture2D> depthBuffer = nullptr;
+
 	WRL::ComPtr<ID3D11RenderTargetView> renderTargetView = nullptr;
+	WRL::ComPtr<ID3D11DepthStencilView> depthView = nullptr;
+
 	WRL::ComPtr<ID3D11RasterizerState> rastState = nullptr;
+	WRL::ComPtr<ID3D11DepthStencilState> depthState = nullptr;
 
 	Camera* camera = nullptr;
 	CameraHandler* cameraHandler = nullptr;
@@ -38,6 +44,9 @@ public:
 	CameraHandler* getCameraHandler();
 private:
 	HRESULT initSwapChain();
+	HRESULT initDepthBuffer();
+	HRESULT initDepthStencilView();
+	HRESULT initDepthStencilState();
 	HRESULT initRenderTarget();
 	HRESULT initRasterizationState();
 

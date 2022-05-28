@@ -1,6 +1,8 @@
 #include "PlaneComponent.h"
 
-PlaneComponent::PlaneComponent(): RenderableObject(lineGrid(100, 50)) {
+#include "Graphics/RenderTypes.h"
+
+PlaneComponent::PlaneComponent(): RenderableObject(&RenderTypes::LINELIST_POS_COLOR, lineGrid(100, 50)) {
 
 }
 

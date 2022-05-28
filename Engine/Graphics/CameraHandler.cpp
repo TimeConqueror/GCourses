@@ -35,11 +35,11 @@ void CameraHandler::update(float partialTick) {
 		velDir.Normalize();
 	}
 
-	cameraPos = cameraPos + velDir * velocityMagnitude * 1;
+	cameraPos = cameraPos + velDir * velocityMagnitude * partialTick;
 	camera->viewMatrix = DirectX::SimpleMath::Matrix::CreateLookAt(cameraPos, cameraPos + rotationMatrix.Forward(), rotationMatrix.Up());
 	camera->update();
 
-	std::cout << "CamPos: " << cameraPos.x << " " << cameraPos.y << " " << cameraPos.z << std::endl;
+	std::cout << "Camera pos: " << cameraPos.x << " " << cameraPos.y << " " << cameraPos.z << std::endl;
 
 	handleMouseMove();
 }
@@ -49,8 +49,6 @@ void CameraHandler::handleMouseMove() {
 	if(inputController.isKeyDown(KEY_Z)) {
 		return;
 	}
-
-	//std::cout << "Mouse: " << inputController.getMouseDx() << " " << inputController.getMouseDy() << std::endl;
 
 	yaw -= inputController.getMouseDx() * 0.003F * mouseSensivity;
 	//yaw = Math::wrapRadians(yaw);

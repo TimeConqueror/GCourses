@@ -1,18 +1,20 @@
 #include "VertexBuffer.h"
 #include "RenderManager.h"
 
-VertexBuffer::VertexBuffer(std::vector<Vertex> elements):
-	elements(elements), Buffer(elements.size()) {
+template <typename VERTEX>
+VertexBuffer<VERTEX>::VertexBuffer(std::vector<VERTEX> elements):
+	Buffer(sizeof(VERTEX) * elements.size()), elements(elements) {
 }
 
-HRESULT VertexBuffer::init(ID3D11Device* device) {
+template <typename VERTEX>
+HRESULT VertexBuffer<VERTEX>::init(ID3D11Device* device) {
 	D3D11_BUFFER_DESC desc = {};
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	desc.CPUAccessFlags = 0;
 	desc.MiscFlags = 0;
 	desc.StructureByteStride = 0;
-	desc.ByteWidth = sizeof(Vertex) * size;
+	desc.ByteWidth = size;
 
 	D3D11_SUBRESOURCE_DATA data = {}; 
 	data.pSysMem = elements.data();
@@ -22,8 +24,11 @@ HRESULT VertexBuffer::init(ID3D11Device* device) {
 	return device->CreateBuffer(&desc, &data, buffer.GetAddressOf());
 }
 
-void VertexBuffer::push(RenderManager& renderManager) {
-	uint stride = sizeof(Vertex);
+template <typename VERTEX>
+void VertexBuffer<VERTEX>::push(RenderManager& renderManager) {
+	uint stride = sizeof(VERTEX);
 	UINT offsets[] = {0};
 	renderManager.getContext()->IASetVertexBuffers(0, 1, buffer.GetAddressOf(), &stride, offsets);
 }
+
+template class VertexBuffer<Vertex>;

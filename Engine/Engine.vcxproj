@@ -164,6 +164,7 @@
     <ClCompile Include="Graphics\Shape.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Rand.cpp" />
+    <ClCompile Include="Graphics\RenderTypes.cpp" />
     <ClCompile Include="Vertex2f.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -173,7 +174,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics\Buffer.h" />
     <ClInclude Include="Graphics\ConstantBuffer.h" />
-    <ClInclude Include="Graphics\ConstantBufferTypes.h" />
     <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Graphics\RenderableObject.h" />
     <ClInclude Include="Graphics\RenderBuffers.h" />
@@ -186,6 +186,7 @@
     <ClInclude Include="Graphics\Shape.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="Rand.h" />
+    <ClInclude Include="Graphics\RenderTypes.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertex2f.h" />

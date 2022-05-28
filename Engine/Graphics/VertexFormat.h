@@ -41,8 +41,8 @@ public:
 		return elements.front();
 	}
 
-	const uint getSize() const {
-		return elements.size();
+	uint getSize() const {
+		return static_cast<uint>(elements.size());
 	}
 
 	D3D_PRIMITIVE_TOPOLOGY getTopology() {

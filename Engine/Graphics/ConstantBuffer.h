@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Buffer.h"
-#include "ConstantBufferTypes.h"
 
 template<typename DATA>
 class ConstantBuffer: public Buffer {

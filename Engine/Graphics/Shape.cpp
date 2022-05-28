@@ -3,7 +3,7 @@
 #include "VertexBuffer.h"
 
 Shape Shape::quad(float width, float height) {
-	return Shape(std::vector<Vertex>(
+	return Shape(std::vector(
 		             {
 			             Vertex(0, 0, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F),
 			             Vertex(0, height, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F),
@@ -17,7 +17,7 @@ Shape Shape::quad(float width, float height) {
 }
 
 Shape Shape::cube(float width, float height, float depth) {
-	return Shape(std::vector<Vertex>(
+	return Shape(std::vector(
 		             {
 			             Vertex(0, 0, 0, 0.0F, 1.0F, 1.0F, 1.0F),
 			             Vertex(width, 0, 0, 0.0F, 1.0F, 1.0F, 1.0F),

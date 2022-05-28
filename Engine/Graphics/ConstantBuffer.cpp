@@ -48,5 +48,4 @@ HRESULT ConstantBuffer<DATA>::update(RenderManager& renderManager, DATA* data) {
 	return 0;
 }
 
-template class ConstantBuffer<ConstantBufferData>;
 template class ConstantBuffer<DirectX::SimpleMath::Matrix>;
