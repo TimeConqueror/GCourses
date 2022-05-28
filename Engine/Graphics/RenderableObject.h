@@ -17,7 +17,7 @@ class RenderableObject {
 	IndexBuffer indexBuffer;
 	ConstantBuffer<DirectX::SimpleMath::Matrix> constantBuffer;
 
-	DirectX::SimpleMath::Vector3 pos;
+	DirectX::SimpleMath::Vector3 pos = DirectX::SimpleMath::Vector3::Zero;
 	bool shouldUpdate = false;
 public:
 	RenderableObject(Shape& shape);

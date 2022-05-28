@@ -14,6 +14,8 @@ void SolarDemo::init() {
 	RenderManager& renderManager = getRenderManager();
 
 	renderManager.addRenderable("left_paddle", bom);
+
+	renderManager.getCameraHandler()->cameraPos = DirectX::SimpleMath::Vector3(50, 50, 150);
 }
 
 void SolarDemo::tick() {

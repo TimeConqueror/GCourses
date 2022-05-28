@@ -50,12 +50,12 @@ void CameraHandler::handleMouseMove() {
 		return;
 	}
 
-	std::cout << "Mouse: " << inputController.getMouseDx() << " " << inputController.getMouseDy() << std::endl;
+	//std::cout << "Mouse: " << inputController.getMouseDx() << " " << inputController.getMouseDy() << std::endl;
 
 	yaw -= inputController.getMouseDx() * 0.003F * mouseSensivity;
 	//yaw = Math::wrapRadians(yaw);
 	pitch -= inputController.getMouseDy() * 0.003F * mouseSensivity;
 	//pitch = Math::wrapRadians(pitch);
 
-	std::cout << "Yaw: " << yaw << ", pitch: " << pitch << std::endl;
+	std::cout << "Yaw: " << Math::toDegrees(yaw) << ", pitch: " << Math::toDegrees(pitch) << std::endl;
 }

@@ -1,6 +1,5 @@
 cbuffer cBuffer : register(b0) {
-	float x;
-	float y;
+	float4x4 mat;
 }
 
 struct VS_INPUT
@@ -16,17 +15,26 @@ struct PS_INPUT
 };
 
 PS_INPUT VSMain(VS_INPUT input)
-{
-	input.pos.x += x;
-	input.pos.y += y;
+{//1
+	PS_INPUT output;
+	output.pos = mul(input.pos, mat);
+	output.col = input.col;
+	return output;
+	//2
+	////input.pos.x = mat[0][3];
+	//input.pos.y = mat[1][3];
 	
-//	output.pos = float4(input.pos, 1.0f);
-	//output.col.rgba = float4(input.col.rgb, 1.0F);
-	//input.col.rgb = float4(0.0F, 0.0F, 1.0F, 1.0F);
-
-	//printf("%s", output.pos.x);
-	
-	return input;
+	// return input;
+	//3
+	// PS_INPUT output = (PS_INPUT)0;
+	// output.pos.x = input.pos.x + mat[0][3];
+	// output.pos.y = input.pos.y + mat[1][3];
+	// output.pos.z = input.pos.z + mat[2][3];
+	//
+	// output.pos.z = input.pos.z;
+	// output.pos.w = input.pos.w;
+	// output.col = input.col;
+	// return output;
 }
 
 float4 PSMain(PS_INPUT input) : SV_Target
@@ -35,5 +43,7 @@ float4 PSMain(PS_INPUT input) : SV_Target
 //#ifdef TEST
 	//if (input.pos.x > 300) { input.col = float4(0.0F, 1.0F, 0.0F, 1.0F); return input.col; }
 //#endif
-	return input.col;
+	//return input.col;
+float4 col = input.col;
+return col;
 }

@@ -17,5 +17,8 @@ public:
      * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
      */
     static double wrapDegrees(double value);
+
+    static float toDegrees(float radians);
+    static float toRadians(float degrees);
 };
 

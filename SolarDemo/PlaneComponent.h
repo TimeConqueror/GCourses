@@ -5,5 +5,5 @@ class PlaneComponent : public RenderableObject {
 public:
 	PlaneComponent();
 
-	static Shape lineGrid(int size, int lineCount, int lineWidth);
+	static Shape lineGrid(int size, int gridSize);
 };

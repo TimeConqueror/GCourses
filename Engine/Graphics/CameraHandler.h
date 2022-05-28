@@ -1,6 +1,7 @@
 #pragma once
 #include <SimpleMath.h>
 #include "Camera.h"
+#include "MathHelper.h"
 
 class Game;
 
@@ -9,7 +10,7 @@ public:
 	float yaw = 0; // horizontal rotation, in radians
 	float pitch = 0; // up and down, in radians
 
-	float velocityMagnitude = 100.0F;
+	float velocityMagnitude = 1.0F;
 	float mouseSensivity = 1.0F;
 
 	Game* game;

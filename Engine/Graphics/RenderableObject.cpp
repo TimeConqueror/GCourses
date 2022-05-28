@@ -37,8 +37,9 @@ DirectX::SimpleMath::Vector3& RenderableObject::getPos() {
 
 void RenderableObject::prepare(RenderManager& renderManager) {
 	auto camera = renderManager.getCamera();
-	std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
+
 	auto wvp = DirectX::SimpleMath::Matrix::CreateTranslation(pos) * camera->viewMatrix * camera->projMatrix;
+	wvp = wvp.Transpose();
 
 	transform(renderManager, wvp);
 }
