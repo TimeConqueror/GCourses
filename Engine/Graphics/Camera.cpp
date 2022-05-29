@@ -39,10 +39,22 @@ DirectX::SimpleMath::Vector3 Camera::getUpVector() const {
 //TODO OPTIMIZE END
 
 void Camera::update() {
-	projMatrix = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
-		Game::getInstance()->getRenderManager().fov,
-		static_cast<float>(game->getWindow().getWidth()) / game->getWindow().getHeight(),
-		0.1F,
-		10000.0F
-	);
+	auto renderManager = Game::getInstance()->getRenderManager();
+
+	if(renderManager.orthographic) {
+		projMatrix = DirectX::SimpleMath::Matrix::CreateOrthographic(
+			game->getWindow().getWidth(),
+			game->getWindow().getHeight(),
+			0.1F,
+			10000.0F
+		);
+	}
+	else {
+		projMatrix = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
+			renderManager.fov,
+			static_cast<float>(game->getWindow().getWidth()) / game->getWindow().getHeight(),
+			0.1F,
+			10000.0F
+		);
+	}
 }

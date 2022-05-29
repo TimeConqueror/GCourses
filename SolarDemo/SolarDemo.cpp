@@ -10,7 +10,7 @@ SolarDemo::SolarDemo(uint screenWidth, uint screenHeight) : Game(L"SolarDemo", s
 }
 
 RenderableObject plane = PlaneComponent();
-Planet sun = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(100, 50, 50, 0x00FFFF00), DirectX::SimpleMath::Vector3(-2, 3, 1), 10000, 1, 1, 1, 1);
+Planet sun = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(100, 50, 50, 0x5522FF00), DirectX::SimpleMath::Vector3(-2, 3, 1), 10000, 1, 1, 1, 1);
 Planet earth = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::cube(10, 10, 10, 0xFF00FF00), DirectX::SimpleMath::Vector3(2, 10, 1), 2000, 200.0F, 10000, 80, 20);
 Planet moon = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(5, 50, 50, 0xFFFFFFFF), DirectX::SimpleMath::Vector3::Up, 1000, 20.0F, 5000, 10, 10);
 Planet parent = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::icosphere(0, 40, 0xFF0000FF), DirectX::SimpleMath::Vector3::Down, 3000, 400.0F, 40000, 10, 20);
@@ -68,6 +68,10 @@ void SolarDemo::handleInput() {
 		getRenderManager().fov = Math::PI_F / 6;
 	} else {
 		getRenderManager().fov = Math::PI_F / 2;
+	}
+
+	if(getInputController().isKeyDown(Keyboard::KEY_C)) {
+		getRenderManager().orthographic = !getRenderManager().orthographic;
 	}
 }
 

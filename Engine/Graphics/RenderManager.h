@@ -33,6 +33,7 @@ private:
 
 public:
 	float fov;
+	bool orthographic = false;
 
 	RenderManager(Window& window);
 	void init(Game* game);
