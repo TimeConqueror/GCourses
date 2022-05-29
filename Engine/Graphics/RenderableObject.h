@@ -21,15 +21,13 @@ class RenderableObject {
 public:
 	DirectX::SimpleMath::Vector3 pos;
 	// in radians
-	DirectX::SimpleMath::Vector3 rotation;
+	DirectX::SimpleMath::Quaternion rotation;
 	DirectX::SimpleMath::Vector3 scale = DirectX::SimpleMath::Vector3::One;
 
 	RenderableObject(RenderType* renderType, Shape& shape);
 	RenderableObject(RenderType* renderType, Shape&& shape);
 
 	void init(RenderManager& renderManager);
-
-	void setRotationByDegrees(float rotX, float rotY, float rotZ);
 
 	RenderType* getRenderType();
 private:

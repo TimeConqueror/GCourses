@@ -40,7 +40,7 @@ DirectX::SimpleMath::Vector3 Camera::getUpVector() const {
 
 void Camera::update() {
 	projMatrix = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
-		DirectX::XM_PIDIV2,
+		Game::getInstance()->getRenderManager().fov,
 		static_cast<float>(game->getWindow().getWidth()) / game->getWindow().getHeight(),
 		0.1F,
 		10000.0F

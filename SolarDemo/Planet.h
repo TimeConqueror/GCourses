@@ -7,7 +7,10 @@ class Planet :
     public Body, public ITickable
 {
 private:
-    DirectX::SimpleMath::Vector3 selfRotationSpeed;
+    DirectX::SimpleMath::Vector3 axis;
+    //in ms
+    long selfRotTime;
+
     float orbitRadius;
     // in ms
     long fullTurnTime;
@@ -17,20 +20,22 @@ private:
     float orbitTiltDirection;
 
 public:
-    Planet(RenderType* renderType, Shape& shape, const DirectX::SimpleMath::Vector3& selfRotationSpeed,
+    Planet(RenderType* renderType, Shape& shape, const DirectX::SimpleMath::Vector3& axis, long selfRotTime,
         float orbitRadius, long fullTurnTime, float orbitTilt, float orbitTiltDirection)
         : Body(renderType, shape),
-          selfRotationSpeed(selfRotationSpeed),
+          axis(axis),
+          selfRotTime(selfRotTime),
           orbitRadius(orbitRadius),
           fullTurnTime(fullTurnTime),
           orbitTilt(orbitTilt),
           orbitTiltDirection(orbitTiltDirection) {
     }
 
-    Planet(RenderType* renderType, Shape&& shape, const DirectX::SimpleMath::Vector3& selfRotationSpeed,
+    Planet(RenderType* renderType, Shape&& shape, const DirectX::SimpleMath::Vector3& axis, long selfRotTime,
         float orbitRadius, long fullTurnTime, float orbitTilt, float orbitTiltDirection)
         : Body(renderType, shape),
-          selfRotationSpeed(selfRotationSpeed),
+          axis(axis),
+          selfRotTime(selfRotTime),
           orbitRadius(orbitRadius),
           fullTurnTime(fullTurnTime),
           orbitTilt(orbitTilt),
@@ -47,13 +52,16 @@ public:
         const double turnProgress = millis % fullTurnTime / static_cast<double>(fullTurnTime);
         const double turnAngle = Math::PI * 2 * turnProgress;
 
-        const auto translation = DirectX::SimpleMath::Matrix::CreateTranslation(orbitRadius, 0, 0);
-        const auto matrix = translation * DirectX::SimpleMath::Matrix::CreateRotationY(turnAngle)
+        const auto matrix = DirectX::SimpleMath::Matrix::CreateTranslation(orbitRadius, 0, 0)
+        * DirectX::SimpleMath::Matrix::CreateRotationY(turnAngle)
         * DirectX::SimpleMath::Matrix::CreateRotationX(Math::toRadians(orbitTilt))
         * DirectX::SimpleMath::Matrix::CreateRotationY(Math::toRadians(orbitTiltDirection));
 
         DirectX::SimpleMath::Vector3 relPos = DirectX::SimpleMath::Vector3::Transform(DirectX::SimpleMath::Vector3::Zero, matrix);
         pos = parentPos + relPos;
+
+        const double rotProgress = millis % selfRotTime / static_cast<double>(selfRotTime);
+        rotation = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(axis, Math::PI * 2 * rotProgress);
 
         Body::updatePos(this);
     }

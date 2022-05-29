@@ -108,7 +108,11 @@ Shape Shape::sphere(float radius, int sectorCount, int stackCount, int argb) {
 			x = xy * std::cosf(sectorAngle); // r * cos(u) * cos(v)
 			y = xy * std::sinf(sectorAngle); // r * cos(u) * sin(v)
 
-			vertices.push_back({x, y, z, Math::color(argb)});
+			auto color = Math::color(argb);
+			if (sectorCount / 2 > i) {
+				color.Negate(color);
+			}
+			vertices.push_back({x, y, z, color});
 
 			// normalized vertex normal (nx, ny, nz)
 			nx = x * lengthInv;

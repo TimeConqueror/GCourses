@@ -17,10 +17,6 @@ void RenderableObject::init(RenderManager& renderManager) {
 	constantBuffer.init(renderManager.getDevice());
 }
 
-void RenderableObject::setRotationByDegrees(float rotX, float rotY, float rotZ) {
-	rotation = DirectX::SimpleMath::Vector3(rotX, rotY, rotZ);
-}
-
 void RenderableObject::transform(RenderManager& renderManager, Matrix& data) {
 	constantBuffer.update(renderManager, &data);
 }
@@ -28,7 +24,7 @@ void RenderableObject::transform(RenderManager& renderManager, Matrix& data) {
 void RenderableObject::prepare(RenderManager& renderManager) {
 	auto camera = renderManager.getCamera();
 
-	auto wvp =  Matrix::CreateTranslation(pos) * Matrix::CreateFromYawPitchRoll(rotation) * Matrix::CreateScale(scale) * camera->viewMatrix * camera->projMatrix;
+	auto wvp = Matrix::CreateFromQuaternion(rotation) * Matrix::CreateScale(scale) * Matrix::CreateTranslation(pos) * camera->viewMatrix * camera->projMatrix;
 
 	transform(renderManager, wvp);
 }

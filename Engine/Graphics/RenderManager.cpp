@@ -17,7 +17,7 @@ static RenderType TRIANGLE_POS_COLOR{
 };
 
 RenderManager::RenderManager(Window& window): window(window) {
-
+	fov = DirectX::XM_PIDIV2;
 }
 
 HRESULT RenderManager::initSwapChain() {

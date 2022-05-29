@@ -30,7 +30,10 @@ private:
 	Camera* camera = nullptr;
 	CameraHandler* cameraHandler = nullptr;
 	std::unordered_map<std::string, RenderableObject&> renderObjects;
+
 public:
+	float fov;
+
 	RenderManager(Window& window);
 	void init(Game* game);
 	void render(float partialTick);
