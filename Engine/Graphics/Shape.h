@@ -15,9 +15,9 @@ public:
 	};
 
 	static Shape quad(float width, float height);
-	static Shape cube(float width, float height, float depth);
-	static Shape icosphere(uint subdivisions, float scale, int rgba);
-	static Shape sphere(float radius, int sectorCount, int stackCount, int rgba);
+	static Shape cube(float width, float height, float depth, int argb);
+	static Shape icosphere(uint subdivisions, float scale, int argb);
+	static Shape sphere(float radius, int sectorCount, int stackCount, int argb);
 
 	std::vector<Vertex>& getVertices();
 	std::vector<uint>& getIndexes();

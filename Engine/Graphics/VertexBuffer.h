@@ -1,6 +1,6 @@
 #pragma once
 #include <directxmath.h>
-#include <wrl.h>
+#include <SimpleMath.h>
 #include "../Utils.h"
 #include "Buffer.h"
 
@@ -24,9 +24,11 @@ struct Vertex {
 
 	}
 
-	Vertex(float x, float y, float z): Vertex(x, y, z, 0.0F, 1.0F, 1.0F, 1.0F) {}
+	Vertex(const float x, const float y, const float z): Vertex(x, y, z, 0.0F, 1.0F, 1.0F, 1.0F) {}
 
-	Vertex(float x, float y): Vertex(x, y, 1.0F) {}
+	Vertex(const float x, const float y, const float z, const DirectX::SimpleMath::Color& color): Vertex(x, y, z, color.R(), color.G(), color.B(), color.A()) {}
+
+	Vertex(const float x, const float y): Vertex(x, y, 1.0F) {}
 };
 
 template<typename VERTEX>

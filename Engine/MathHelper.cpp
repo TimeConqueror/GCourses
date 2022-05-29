@@ -1,5 +1,8 @@
 #include "MathHelper.h"
+
+#include <chrono>
 #include <cmath>
+#include <d3dtypes.h>
 
 float Math::wrapDegrees(float value) {
 	float f = std::fmod(value, 360.0F);
@@ -33,6 +36,22 @@ float Math::toDegrees(float radians) {
 
 float Math::toRadians(float degrees) {
 	return degrees / 180.0F * PI_F;
+}
+
+DirectX::SimpleMath::Vector3 Math::toRadians(DirectX::SimpleMath::Vector3 degrees) {
+	return degrees / 180.0F * PI_F;
+}
+
+long Math::currentMillis() {
+	const std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+		std::chrono::system_clock::now().time_since_epoch()
+		);
+
+	return ms.count();
+}
+
+DirectX::SimpleMath::Color Math::color(int argb) {
+	return DirectX::SimpleMath::Color(RGBA_GETRED(argb) / 255.0F, RGBA_GETGREEN(argb) / 255.0F, RGBA_GETBLUE(argb) / 255.0F, RGBA_GETALPHA(argb) / 255.0F);
 }
 
 float Math::wrapRadians(float value) {

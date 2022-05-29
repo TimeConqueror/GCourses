@@ -2,7 +2,6 @@
 #include "Shape.h"
 
 #include <map>
-#include <cmath>
 #include <SimpleMath.h>
 
 #include "MathHelper.h"
@@ -22,17 +21,19 @@ Shape Shape::quad(float width, float height) {
 		             }));
 }
 
-Shape Shape::cube(float width, float height, float depth) {
+Shape Shape::cube(float width, float height, float depth, int argb) {
+	auto color = Math::color(argb);
+
 	return Shape(std::vector(
 		             {
-			             Vertex(0, 0, 0, 0.5F, 0.0F, 1.0F, 1.0F),
-			             Vertex(width, 0, 0, 0.0F, 0.0F, 1.0F, 1.0F),
-			             Vertex(width, 0, depth, 1.0F, 0.0F, 1.0F, 1.0F),
-			             Vertex(0, 0, depth, 0.0F, 1.0F, 0.0F, 1.0F),
-			             Vertex(0, height, 0, 0.0F, 1.0F, 0.0F, 1.0F),
-			             Vertex(width, height, 0, 0.0F, 0.0F, 1.0F, 1.0F),
-			             Vertex(width, height, depth, 0.0F, 0.0F, 1.0F, 1.0F),
-			             Vertex(0, height, depth, 1.0F, 1.0F, 1.0F, 1.0F),
+			             Vertex(0, 0, 0, color),
+			             Vertex(width, 0, 0, color),
+			             Vertex(width, 0, depth, color),
+			             Vertex(0, 0, depth, color),
+			             Vertex(0, height, 0, color),
+			             Vertex(width, height, 0, color),
+			             Vertex(width, height, depth, color),
+			             Vertex(0, height, depth, color),
 		             }),
 	             std::vector<uint>(
 		             {
@@ -45,7 +46,7 @@ Shape Shape::cube(float width, float height, float depth) {
 		             }));
 }
 
-Shape Shape::icosphere(uint subdivisions, float scale, int rgba) {
+Shape Shape::icosphere(uint subdivisions, float scale, int argb) {
 	constexpr float x = 0.525731112119133606f;
 	constexpr float z = 0.850650808352039932f;
 	constexpr float n = 0.f;
@@ -73,15 +74,14 @@ Shape Shape::icosphere(uint subdivisions, float scale, int rgba) {
 
 	for (const auto point : points) {
 		vertices.push_back({
-			point.x * scale, point.y * scale, point.z * scale, RGBA_GETRED(rgba) / 255.0F, RGBA_GETGREEN(rgba) / 255.0F,
-			RGBA_GETBLUE(rgba) / 255.0F, RGBA_GETALPHA(rgba) / 255.0F
+			point.x * scale, point.y * scale, point.z * scale, Math::color(argb)
 		});
 	}
 
 	return Shape(vertices, indexes);
 }
 
-Shape Shape::sphere(float radius, int sectorCount, int stackCount, int rgba) {
+Shape Shape::sphere(float radius, int sectorCount, int stackCount, int argb) {
 	//http://www.songho.ca/opengl/gl_sphere.html
 
 	std::vector<Vertex> vertices;
@@ -90,8 +90,8 @@ Shape Shape::sphere(float radius, int sectorCount, int stackCount, int rgba) {
 	float nx, ny, nz, lengthInv = 1.0f / radius; // vertex normal
 	float s, t; // vertex texCoord
 
-	float sectorStep = 2 * Math::PI_F / sectorCount;
-	float stackStep = Math::PI_F / stackCount;
+	const float sectorStep = 2 * Math::PI_F / sectorCount;
+	const float stackStep = Math::PI_F / stackCount;
 	float sectorAngle, stackAngle;
 
 	for (int i = 0; i <= stackCount; ++i) {
@@ -108,10 +108,7 @@ Shape Shape::sphere(float radius, int sectorCount, int stackCount, int rgba) {
 			x = xy * std::cosf(sectorAngle); // r * cos(u) * cos(v)
 			y = xy * std::sinf(sectorAngle); // r * cos(u) * sin(v)
 
-			vertices.push_back({
-				x, y, z, RGBA_GETRED(rgba) / 255.0F, RGBA_GETGREEN(rgba) / 255.0F, RGBA_GETBLUE(rgba) / 255.0F,
-				RGBA_GETALPHA(rgba) / 255.0F
-			});
+			vertices.push_back({x, y, z, Math::color(argb)});
 
 			// normalized vertex normal (nx, ny, nz)
 			nx = x * lengthInv;

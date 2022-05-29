@@ -1,4 +1,5 @@
 #pragma once
+#include "SimpleMath.h"
 
 class Math {
 public:
@@ -19,4 +20,9 @@ public:
 
 	static float toDegrees(float radians);
 	static float toRadians(float degrees);
+	static DirectX::SimpleMath::Vector3 toRadians(DirectX::SimpleMath::Vector3 degrees);
+
+	static long currentMillis();
+
+	static DirectX::SimpleMath::Color color(int argb);
 };

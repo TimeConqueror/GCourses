@@ -10,9 +10,9 @@ Ball::Ball(): RenderableObject(Shape::quad(Board::ratioX, Board::ratioX * 800.0F
 };
 
 WinState Ball::checkWin() {
-	if (getPos().y > 1) {
+	if (pos.y > 1) {
 		return WinState::LEFT_WON;
-	} else if (getPos().x + width < -1) {
+	} else if (pos.x + width < -1) {
 		return WinState::RIGHT_WON;
 	}
 	return WinState::PLAYING;
@@ -23,30 +23,30 @@ void Ball::tick(Board& left, Board& right, float partialTick) {
 	handleBoardBounce(left, true);
 	handleBoardBounce(right, false);
 
-	setPos(getPos().x + vel.x, getPos().y + vel.y, 1.0F);
+	pos = DirectX::SimpleMath::Vector3(pos.x + vel.x, pos.y + vel.y, 1.0F);
 }
 
 void Ball::handleWallBounce() {
-	if (getPos().y + height >= 1 || getPos().y <= -1) {
+	if (pos.y + height >= 1 || pos.y <= -1) {
 		vel.y = -vel.y;
 	}
 }
 
 void Ball::handleBoardBounce(Board& board, bool left) {
-	float x = getPos().x;
-	float y = getPos().y;
+	float x = pos.x;
+	float y = pos.y;
 
 	//when it's too late
 	if (left) {
-		if (x < board.getPos().x)  return;
-	} else if (x > board.getPos().x + board.getWidth()) {
+		if (x < board.pos.x)  return;
+	} else if (x > board.pos.x + board.getWidth()) {
 		return;
 	}
 
 	float fault = 0.004F;
 
-	if ((left ? board.getPos().x + board.getWidth() >= x + fault : board.getPos().x <= x + width - fault)
-		&& !(y + height <board.getPos().y || y > board.getPos().y + board.getHeight())) {
+	if ((left ? board.pos.x + board.getWidth() >= x + fault : board.pos.x <= x + width - fault)
+		&& !(y + height <board.pos.y || y > board.pos.y + board.getHeight())) {
 
 		vel.x = abs(vel.x * 1.04);
 		if (!left) {
@@ -55,9 +55,9 @@ void Ball::handleBoardBounce(Board& board, bool left) {
 
 		Vertex2f v;
 		if (left) {
-			v = Vertex2f{board.getPos().x + board.getWidth(), board.getPos().y + board.getHeight() / 2};
+			v = Vertex2f{board.pos.x + board.getWidth(), board.pos.y + board.getHeight() / 2};
 		} else {
-			v = Vertex2f{board.getPos().x, board.getPos().y + board.getHeight() / 2};
+			v = Vertex2f{board.pos.x, board.pos.y + board.getHeight() / 2};
 		}
 
 		float mult = 20;
@@ -71,8 +71,8 @@ void Ball::handleBoardBounce(Board& board, bool left) {
 }
 
 float Ball::getDistanceSqr(float destX, float destY) {
-	float dx = getPos().x - destX;
-	float dy = getPos().y - destY;
+	float dx = pos.x - destX;
+	float dy = pos.y - destY;
 	return dx * dx + dy * dy;
 }
 
@@ -86,7 +86,7 @@ Velocity Ball::getVelocity() {
 }
 
 void Ball::reset(bool leftWon) {
-	setPos(-width / 2, -height / 2, 1.0F);
+	pos = DirectX::SimpleMath::Vector3(-width / 2, -height / 2, 1.0F);
 
 	setVelocity(0.035, 0);
 

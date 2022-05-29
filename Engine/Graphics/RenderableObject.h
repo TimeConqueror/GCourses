@@ -17,20 +17,23 @@ class RenderableObject {
 	ConstantBuffer<DirectX::SimpleMath::Matrix> constantBuffer;
 	RenderType* renderType;
 
-	DirectX::SimpleMath::Vector3 pos = DirectX::SimpleMath::Vector3::Zero;
 	bool shouldUpdate = false;
 public:
+	DirectX::SimpleMath::Vector3 pos;
+	// in radians
+	DirectX::SimpleMath::Vector3 rotation;
+	DirectX::SimpleMath::Vector3 scale = DirectX::SimpleMath::Vector3::One;
+
 	RenderableObject(RenderType* renderType, Shape& shape);
 	RenderableObject(RenderType* renderType, Shape&& shape);
 
 	void init(RenderManager& renderManager);
-	void transform(RenderManager& renderManager, DirectX::SimpleMath::Matrix& data);
-	void setPos(const DirectX::SimpleMath::Vector3& vec);
-	void setPos(float x, float y, float z);
 
-	DirectX::SimpleMath::Vector3& getPos();
+	void setRotationByDegrees(float rotX, float rotY, float rotZ);
+
 	RenderType* getRenderType();
 private:
+	void transform(RenderManager& renderManager, DirectX::SimpleMath::Matrix& data);
 	void prepare(RenderManager& renderManager);
 };
 
