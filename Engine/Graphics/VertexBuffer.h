@@ -10,6 +10,16 @@ struct Vertex {
 	DirectX::XMFLOAT4 pos;
 	DirectX::XMFLOAT4 color;
 
+	Vertex(const Vertex& other) = default;
+	Vertex(Vertex&& other) noexcept = default;
+	Vertex& operator=(const Vertex& other) = default;
+	Vertex& operator=(Vertex&& other) noexcept = default;
+
+	Vertex(const DirectX::XMFLOAT4& pos, const DirectX::XMFLOAT4& color)
+		: pos(pos),
+		  color(color) {
+	}
+
 	Vertex(float x, float y, float z, float r, float g, float b, float a):pos(x,y,z, 1.0F), color(r,g,b,a) {
 
 	}

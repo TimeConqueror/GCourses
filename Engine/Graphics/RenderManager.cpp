@@ -122,7 +122,6 @@ void RenderManager::init(Game* game) {
 	cameraHandler = new CameraHandler(game, camera);
 
 	RenderTypes::init(*this);
-	//TRIANGLE_POS_COLOR.init(*this);	
 }
 
 void RenderManager::addRenderable(std::string name, RenderableObject& object) {
