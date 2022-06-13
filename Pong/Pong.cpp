@@ -4,9 +4,9 @@
 void Pong::init() {
 	RenderManager& renderManager = getRenderManager();
 	std::cout << "Initializing..." << std::endl;
-	renderManager.addRenderable("left_paddle", leftBoard);
-	renderManager.addRenderable("right_paddle", rightBoard);
-	renderManager.addRenderable("ball", ball);
+	renderManager.addRenderable(&leftBoard);
+	renderManager.addRenderable(&rightBoard);
+	renderManager.addRenderable(&ball);
 
 	ball.reset();
 }

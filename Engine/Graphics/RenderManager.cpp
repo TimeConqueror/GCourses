@@ -124,14 +124,23 @@ void RenderManager::init(Game* game) {
 	RenderTypes::init(*this);
 }
 
-void RenderManager::addRenderable(std::string name, RenderableObject& object) {
-	object.init(*this);
-	renderObjects.insert(std::pair<std::string, RenderableObject&>(name, object));
-	std::cout << "Added new render object, current size: " << renderObjects.size() << std::endl;
+int RenderManager::addRenderable(RenderableObject* object) {
+	object->init(*this);
+	renderObjects.push_back(object);
+
+	std::cout << "Added render object, current size: " << renderObjects.size() << std::endl;
+
+	return renderObjects.size();
 }
 
-void RenderManager::removeRenderable(std::string name) {
-	renderObjects.erase(name);
+void RenderManager::addNamedRenderable(std::string name, RenderableObject* object) {
+	object->init(*this);
+	namedRenderObjects.insert(std::pair(name, object));
+	std::cout << "Added named render object: '" << name << "'" << std::endl;
+}
+
+void RenderManager::removeNamedRenderable(std::string name) {
+	namedRenderObjects.erase(name);
 }
 
 ID3D11Device* RenderManager::getDevice() {
@@ -176,15 +185,12 @@ void RenderManager::render(float partialTick) {
 
 	beginRender();
 
-	if (renderObjects.empty()) {
-		//std::cout << "Nothing to render..." << std::endl;
+	for (auto& it : renderObjects) {
+		it->getRenderType()->render(*this, *it);
 	}
 
-	for (auto& it : renderObjects) {
-		//std::cout << "Rendering '" << it.first << "'..." << std::endl;
-		auto obj = it.second;
-		obj.getRenderType()->render(*this, obj);
-		//TRIANGLE_POS_COLOR.render(*this, obj);
+	for(const auto& it : namedRenderObjects) {
+		//it.second->getRenderType()->render(*this, *it.second);
 	}
 
 	endRender();

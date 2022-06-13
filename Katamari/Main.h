@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SolarDemo.h"
+#include "../Engine/Graphics/VertexFormat.h"
 
 class Main {
 };

@@ -29,7 +29,8 @@ private:
 
 	Camera* camera = nullptr;
 	CameraHandler* cameraHandler = nullptr;
-	std::unordered_map<std::string, RenderableObject&> renderObjects;
+	std::vector<RenderableObject*> renderObjects;
+	std::unordered_map<std::string, RenderableObject*> namedRenderObjects;
 
 public:
 	float fov;
@@ -38,8 +39,9 @@ public:
 	RenderManager(Window& window);
 	void init(Game* game);
 	void render(float partialTick);
-	void addRenderable(std::string name, RenderableObject& object);
-	void removeRenderable(std::string name);
+	int addRenderable(RenderableObject* object);
+	void addNamedRenderable(std::string name, RenderableObject* object);
+	void removeNamedRenderable(std::string name);
 
 	ID3D11Device* getDevice();
 	ID3D11DeviceContext* getContext();

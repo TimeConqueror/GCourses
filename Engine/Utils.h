@@ -1,8 +1,10 @@
 #pragma once
 #include <d3d.h>
 #include <d3d11.h>
+#include <random>
 #include <stdexcept>
 #include <vector>
+#include <sstream>
 
 typedef unsigned int uint;
 typedef unsigned int uchar;
