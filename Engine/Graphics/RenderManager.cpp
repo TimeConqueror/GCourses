@@ -1,9 +1,16 @@
 #include "RenderManager.h"
+#include <DirectXMath.h>
+#include <DirectXTex.h>
 
 #include "RenderTypes.h"
 #include "../Utils.h"
 
-RenderManager::RenderManager(Window& window): window(window) {
+#include <iostream>
+#include <string>
+#include <filesystem>
+#include <fstream>
+
+RenderManager::RenderManager(Window& window): window(window), sampler(D3D11_FILTER_MIN_MAG_MIP_LINEAR, 0) {
 	fov = DirectX::XM_PIDIV2;
 }
 
@@ -61,11 +68,6 @@ HRESULT RenderManager::initDepthBuffer() {
 }
 
 HRESULT RenderManager::initDepthStencilView() {
-	// D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc = {};
-	// depthStencilViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
-	// depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	// depthStencilViewDesc.Flags = 0;
-	// return device->CreateDepthStencilView(depthBuffer.Get(), &depthStencilViewDesc, depthView.GetAddressOf());
 	return device->CreateDepthStencilView(depthBuffer.Get(), nullptr, depthView.GetAddressOf());
 }
 
@@ -104,11 +106,49 @@ void RenderManager::init(Game* game) {
 	Utils::checkValid(initDepthStencilState());
 	Utils::checkValid(initRenderTarget());
 	Utils::checkValid(initRasterizationState());
+	Utils::checkValid(sampler.init(*this));
 
 	camera = new Camera(game);
 	cameraHandler = new CameraHandler(game, camera);
 
 	RenderTypes::init(*this);
+
+	CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
+	bool iswic2 = false;
+	auto pWIC = DirectX::GetWICFactory(iswic2);
+
+	DirectX::TexMetadata metadata{};
+	DirectX::ScratchImage image;
+	std::cout << std::filesystem::current_path() << std::endl;
+	std::ifstream myfile;
+	myfile.open("Assets/thaumatorium.png");
+	if(myfile)
+	{
+		std::cout << "file exists";
+	}
+	else
+	{
+		std::cout << "file doesn't exist";
+	}
+	
+	Utils::checkValid(LoadFromWICFile(
+		L"Assets/thaumatorium.png",
+		DirectX::WIC_FLAGS_NONE,
+		&metadata,
+		image));
+
+	Utils::checkValid(CreateTextureEx(
+		getDevice(),
+		image.GetImages(),
+		image.GetImageCount(),
+		image.GetMetadata(),
+		D3D11_USAGE_DEFAULT,
+		D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
+		0, 0, false,
+		reinterpret_cast<ID3D11Resource**>(testTexture.GetAddressOf())));
+
+	device->CreateShaderResourceView(testTexture.Get(), nullptr, &testTextureView);
+	//image.Release();
 }
 
 int RenderManager::addRenderable(IRenderable* object) {
@@ -165,19 +205,21 @@ void RenderManager::beginRender() {
 	float color[] = {0.0F, 0.0f, 0.0f, 1.0f};
 	context->ClearRenderTargetView(renderTargetView.Get(), color);
 	context->ClearDepthStencilView(depthView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0F, 0);
+
+	sampler.push(*this);
 }
 
 void RenderManager::render(float partialTick) {
 	cameraHandler->update(partialTick);
-
 	beginRender();
+	getContext()->PSSetShaderResources(0, 1, testTextureView.GetAddressOf());
 
 	for (auto& it : renderObjects) {
 		it->getRenderType()->render(*this, *it);
 	}
 
-	for(const auto& it : namedRenderObjects) {
-		//it.second->getRenderType()->render(*this, *it.second);
+	for (const auto& [name, renderable] : namedRenderObjects) {
+		renderable->getRenderType()->render(*this, *renderable);
 	}
 
 	endRender();

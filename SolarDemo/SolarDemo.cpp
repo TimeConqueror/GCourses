@@ -4,6 +4,7 @@
 #include "Planet.h"
 #include "../Engine/Keyboard.h"
 #include "Graphics/RenderTypes.h"
+#include "Graphics/Shape.h"
 
 SolarDemo::SolarDemo(uint screenWidth, uint screenHeight) : Game(L"SolarDemo", screenWidth, screenHeight)
 {
@@ -46,6 +47,8 @@ void SolarDemo::init() {
 	parentChild.addChild(&parentChildChild);
 	parentChildChild.addChild(&parentChildChildChild1);
 	parentChildChild.addChild(&parentChildChildChild2);
+
+	sun.pos = DirectX::SimpleMath::Vector3(500, 500, 500);
 }
 
 void SolarDemo::addPlanet(Planet* planet) {

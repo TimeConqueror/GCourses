@@ -39,8 +39,6 @@ void CameraHandler::update(float partialTick) {
 	camera->viewMatrix = DirectX::SimpleMath::Matrix::CreateLookAt(cameraPos, cameraPos + rotationMatrix.Forward(), rotationMatrix.Up());
 	camera->update();
 
-	std::cout << "Camera pos: " << cameraPos.x << " " << cameraPos.y << " " << cameraPos.z << std::endl;
-
 	handleMouseMove();
 }
 
@@ -54,6 +52,4 @@ void CameraHandler::handleMouseMove() {
 	//yaw = Math::wrapRadians(yaw);
 	pitch -= inputController.getMouseDy() * 0.003F * mouseSensivity;
 	//pitch = Math::wrapRadians(pitch);
-
-	std::cout << "Yaw: " << Math::toDegrees(yaw) << ", pitch: " << Math::toDegrees(pitch) << std::endl;
 }

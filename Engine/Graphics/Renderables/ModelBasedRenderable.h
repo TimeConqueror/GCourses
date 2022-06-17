@@ -10,6 +10,9 @@ private:
 	Model* model;
 	DirectX::SimpleMath::Vector3 pos;
 public:
+	explicit ModelBasedRenderable(Model* model)
+		: model(model) {
+	}
 	void init(RenderManager& renderManager) override;
 	RenderType* getRenderType() const override;
 protected:

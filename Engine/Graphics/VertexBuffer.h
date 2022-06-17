@@ -32,7 +32,7 @@ struct Vertex {
 	Vertex(const float x, const float y): Vertex(x, y, 1.0F) {}
 };
 
-template<typename VERTEX>
+template<class VERTEX>
 class VertexBuffer: public Buffer {
 private:
 	std::vector<VERTEX> elements;

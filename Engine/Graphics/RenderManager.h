@@ -7,6 +7,7 @@
 
 #include "Camera.h"
 #include "CameraHandler.h"
+#include "Sampler.h"
 #include "Window.h"
 #include "Renderables/IRenderable.h"
 
@@ -31,6 +32,11 @@ private:
 	CameraHandler* cameraHandler = nullptr;
 	std::vector<IRenderable*> renderObjects;
 	std::unordered_map<std::string, IRenderable*> namedRenderObjects;
+
+	Sampler sampler;
+
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> testTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> testTextureView;
 
 public:
 	float fov;

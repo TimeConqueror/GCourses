@@ -13,7 +13,6 @@ void RenderType::render(RenderManager& renderManager, IRenderable& object) {
 	//renderManager.getContext()->RSGetState(&oldState);
 	pushShaders(renderManager);//TODO move outside to render many same-arch objects
 
-	renderManager.getContext()->IASetPrimitiveTopology(vertexFormat.getTopology());
 	object.render(renderManager);
 }
 

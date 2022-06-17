@@ -1,6 +1,7 @@
 #pragma once
-#include "..\Engine\Graphics\RenderableObject.h"
+#include "..\Engine\Graphics\Renderables\RenderableObject.h"
 #include "../Engine/Graphics/Shape.h"
+#include "Graphics/RenderTypes.h"
 
 class Board :
 	public RenderableObject {
@@ -12,7 +13,7 @@ public:
 	static const float ratioX;
 	static const float ratioY;
 
-	Board(bool isLeft): RenderableObject(Shape::quad(ratioX, ratioY)), width(ratioX), height(ratioY), left(isLeft) {
+	Board(bool isLeft): RenderableObject(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::quad(ratioX, ratioY)), width(ratioX), height(ratioY), left(isLeft) {
 		reset();
 	}
 

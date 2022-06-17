@@ -1,6 +1,6 @@
 #pragma once
 #include "ITickable.h"
-#include "Graphics/RenderableObject.h"
+#include "Graphics/Renderables/RenderableObject.h"
 
 class Body :
     public RenderableObject, public ITickable

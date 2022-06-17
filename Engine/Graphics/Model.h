@@ -20,7 +20,7 @@ public:
 	Model(RenderType* renderType, std::vector<Mesh>& meshes)
 		: meshes(meshes), renderType(renderType) {
 		for (Mesh mesh : meshes)  {
-			vertexBuffers.push_back(VertexBuffer(mesh.getVertices()));
+			vertexBuffers.push_back(VertexBuffer<PTVertex>(mesh.getVertices()));
 			indexBuffers.push_back(IndexBuffer(mesh.getIndexes()));
 		}
 	}

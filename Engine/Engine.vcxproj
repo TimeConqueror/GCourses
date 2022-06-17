@@ -169,6 +169,7 @@
     <ClCompile Include="Graphics\Renderables\ModelBasedRenderable.cpp" />
     <ClCompile Include="Rand.cpp" />
     <ClCompile Include="Graphics\RenderTypes.cpp" />
+    <ClCompile Include="Graphics\Sampler.cpp" />
     <ClCompile Include="Vertex2f.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -196,6 +197,7 @@
     <ClInclude Include="Graphics\Renderables\ModelBasedRenderable.h" />
     <ClInclude Include="Rand.h" />
     <ClInclude Include="Graphics\RenderTypes.h" />
+    <ClInclude Include="Graphics\Sampler.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertex2f.h" />
@@ -221,6 +223,7 @@
     <Import Project="..\packages\directxtk_desktop_2019.2022.5.10.4\build\native\directxtk_desktop_2019.targets" Condition="Exists('..\packages\directxtk_desktop_2019.2022.5.10.4\build\native\directxtk_desktop_2019.targets')" />
     <Import Project="..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
     <Import Project="..\packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" />
+    <Import Project="..\packages\directxtex_uwp.2022.5.10.1\build\native\directxtex_uwp.targets" Condition="Exists('..\packages\directxtex_uwp.2022.5.10.1\build\native\directxtex_uwp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -230,5 +233,6 @@
     <Error Condition="!Exists('..\packages\directxtk_desktop_2019.2022.5.10.4\build\native\directxtk_desktop_2019.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2019.2022.5.10.4\build\native\directxtk_desktop_2019.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtex_uwp.2022.5.10.1\build\native\directxtex_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_uwp.2022.5.10.1\build\native\directxtex_uwp.targets'))" />
   </Target>
 </Project>

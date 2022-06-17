@@ -45,7 +45,7 @@ public:
     void tick() override;
 
     void updatePos(Body* parent) override {
-        const DirectX::SimpleMath::Vector3 parentPos = parent ? parent->pos : DirectX::SimpleMath::Vector3::Zero;
+        const DirectX::SimpleMath::Vector3 parentPos = parent ? parent->pos : DirectX::SimpleMath::Vector3(1000, 1000, 1000);
 
         const long millis = Math::currentMillis();
 

@@ -18,7 +18,7 @@
     <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SolarDemo.h">
+    <ClInclude Include="Katamari.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlaneComponent.h">
@@ -35,7 +35,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SolarDemo.cpp">
+    <ClCompile Include="Katamari.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">

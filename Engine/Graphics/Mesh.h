@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -46,8 +47,8 @@ public:
 		return indexes;
 	}
 
-	static std::vector<Mesh>& load(const std::string& path) {
-		 Assimp::Importer importer;
+	static std::vector<Mesh> load(const std::string& path) {
+		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 		std::vector<Mesh> meshes;
@@ -57,23 +58,23 @@ public:
 			return meshes;
 		}
 		
-		processNode(meshes, scene, scene->mRootNode);
+		parseNode(meshes, scene, scene->mRootNode);
 		return meshes;
 	}
 
 private:
-	static void processNode(std::vector<Mesh>& meshes, const aiScene* scene, const aiNode* node) {
+	static void parseNode(std::vector<Mesh>& meshes, const aiScene* scene, const aiNode* node) {
 		for (uint i = 0; i < node->mNumMeshes; i++) {
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			meshes.push_back(processMesh(scene, mesh));
+			meshes.push_back(parseMesh(scene, mesh));
 		}
 		
 		for (uint i = 0; i < node->mNumChildren; i++) {
-			processNode(meshes, scene, node->mChildren[i]);
+			parseNode(meshes, scene, node->mChildren[i]);
 		}
 	}
 	
-	static Mesh processMesh(const aiScene* scene, const aiMesh* mesh) {
+	static Mesh parseMesh(const aiScene* scene, const aiMesh* mesh) {
 		std::vector<PTVertex> vertices;
 		std::vector<uint> indices;
 	

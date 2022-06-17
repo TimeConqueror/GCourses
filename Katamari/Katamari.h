@@ -1,5 +1,5 @@
 #pragma once
-#include "..\Engine\Game.h"
+#include "Game.h"
 #include "PlaneComponent.h"
 #include "Planet.h"
 #include "Graphics/Camera.h"
@@ -7,13 +7,13 @@
 
 class ITickable;
 
-class SolarDemo :
+class Katamari :
     public Game {
 private:
     std::vector<ITickable*> entities;
 
 public:
-    SolarDemo(uint screenWidth, uint screenHeight);
+    Katamari(uint screenWidth, uint screenHeight);
 protected:
     void init() override;
     void addPlanet(Planet* planet);

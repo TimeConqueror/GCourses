@@ -1,11 +1,13 @@
-#include "SolarDemo.h"
+#include "Katamari.h"
 
 #include "PlaneComponent.h"
 #include "Planet.h"
 #include "../Engine/Keyboard.h"
+#include "Graphics/Model.h"
 #include "Graphics/RenderTypes.h"
+#include "Graphics/Renderables/ModelBasedRenderable.h"
 
-SolarDemo::SolarDemo(uint screenWidth, uint screenHeight) : Game(L"SolarDemo", screenWidth, screenHeight)
+Katamari::Katamari(uint screenWidth, uint screenHeight) : Game(L"Katamari", screenWidth, screenHeight)
 {
 }
 
@@ -19,51 +21,56 @@ Planet parentChildChild = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sp
 Planet parentChildChildChild1 = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(5, 50, 50, 0xFF44FFFF), DirectX::SimpleMath::Vector3::Backward, 3000, 24.0F, 1000, 20, 10);
 Planet parentChildChildChild2 = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(6, 50, 50, 0x00AAAAFF), DirectX::SimpleMath::Vector3::Forward, 1000, 17.0F, 500, 40, 90);
 
-void SolarDemo::init() {
+auto meshes = Mesh::load("Assets/thaumatorium.obj");
+auto thaumatoriumModel = Model(&RenderTypes::TRIANGLELIST_POS_UV, meshes);
+void Katamari::init() {
 	std::cout << "Initializing..." << std::endl;
 	RenderManager& renderManager = getRenderManager();
 
-	renderManager.addRenderable(&plane);
-	renderManager.addRenderable(&sun);
-	renderManager.addRenderable(&earth);
-	renderManager.addRenderable(&moon);
+	//renderManager.addRenderable(&sun);
+	//renderManager.addRenderable(&earth);
+	//renderManager.addRenderable(&moon);
 	//renderManager.addRenderable("zzz", zom);
 	//renderManager.addRenderable("sphrer", ñom);
 
-	renderManager.addRenderable(&parent);
-	renderManager.addRenderable(&parentChild);
-	renderManager.addRenderable(&parentChildChild);
-	renderManager.addRenderable(&parentChildChildChild1);
-	renderManager.addRenderable(&parentChildChildChild2);
+	//renderManager.addRenderable(&parent);
+	//renderManager.addRenderable(&parentChild);
+	//renderManager.addRenderable(&parentChildChild);
+	//renderManager.addRenderable(&parentChildChildChild1);
+	//renderManager.addRenderable(&parentChildChildChild2);
 
 	renderManager.getCameraHandler()->cameraPos = DirectX::SimpleMath::Vector3(50, 50, 150);
 
-	sun.addChild(&earth);
-	earth.addChild(&moon);
+	//sun.addChild(&earth);
+	//earth.addChild(&moon);
 
-	sun.addChild(&parent);
-	parent.addChild(&parentChild);
-	parentChild.addChild(&parentChildChild);
-	parentChildChild.addChild(&parentChildChildChild1);
-	parentChildChild.addChild(&parentChildChildChild2);
+	//sun.addChild(&parent);
+	//parent.addChild(&parentChild);
+	//parentChild.addChild(&parentChildChild);
+	//parentChildChild.addChild(&parentChildChildChild1);
+	//parentChildChild.addChild(&parentChildChildChild2);
+
+	thaumatoriumModel.init(renderManager);
+	renderManager.addRenderable(new ModelBasedRenderable(&thaumatoriumModel));
+	renderManager.addRenderable(&plane);
 }
 
-void SolarDemo::addPlanet(Planet* planet) {
+void Katamari::addPlanet(Planet* planet) {
 	auto renderManager = getRenderManager();
 	renderManager.addRenderable(planet);
 	//entities.push_back(planet);
 }
 
-void SolarDemo::tick() {
+void Katamari::tick() {
 	sun.updatePos(nullptr);
 
 	handleInput();
 }
 
-void SolarDemo::handleWinState() {
+void Katamari::handleWinState() {
 }
 
-void SolarDemo::handleInput() {
+void Katamari::handleInput() {
 	if(getInputController().isKeyDown(Keyboard::KEY_F)) {
 		getRenderManager().fov = Math::PI_F / 6;
 	} else {

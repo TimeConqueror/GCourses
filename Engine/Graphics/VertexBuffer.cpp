@@ -1,12 +1,14 @@
 #include "VertexBuffer.h"
+
+#include "Mesh.h"
 #include "RenderManager.h"
 
-template <typename VERTEX>
+template <class VERTEX>
 VertexBuffer<VERTEX>::VertexBuffer(std::vector<VERTEX> elements):
 	Buffer(sizeof(VERTEX) * elements.size()), elements(elements) {
 }
 
-template <typename VERTEX>
+template <class VERTEX>
 HRESULT VertexBuffer<VERTEX>::init(ID3D11Device* device) {
 	D3D11_BUFFER_DESC desc = {};
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -24,7 +26,7 @@ HRESULT VertexBuffer<VERTEX>::init(ID3D11Device* device) {
 	return device->CreateBuffer(&desc, &data, buffer.GetAddressOf());
 }
 
-template <typename VERTEX>
+template <class VERTEX>
 void VertexBuffer<VERTEX>::push(RenderManager& renderManager) {
 	uint stride = sizeof(VERTEX);
 	UINT offsets[] = {0};
@@ -32,3 +34,4 @@ void VertexBuffer<VERTEX>::push(RenderManager& renderManager) {
 }
 
 template class VertexBuffer<Vertex>;
+template class VertexBuffer<PTVertex>;
