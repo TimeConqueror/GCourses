@@ -7,20 +7,14 @@
 RenderType::RenderType(LPCWSTR shaderPath, VertexFormat& vertexFormat): shaderPath(shaderPath), vertexFormat(vertexFormat) {
 }
 
-void RenderType::render(RenderManager& renderManager, RenderableObject& object) {
+void RenderType::render(RenderManager& renderManager, IRenderable& object) {
 	//ID3D11RasterizerState* oldState;
 	//renderManager.getContext()->RSGetState(&oldState);
 	//renderManager.getContext()->RSGetState(&oldState);
 	pushShaders(renderManager);//TODO move outside to render many same-arch objects
 
-	object.prepare(renderManager);
-
-	object.vertexBuffer.push(renderManager);
-	object.indexBuffer.push(renderManager);
-	object.constantBuffer.push(renderManager);
-
 	renderManager.getContext()->IASetPrimitiveTopology(vertexFormat.getTopology());
-	renderManager.getContext()->DrawIndexed(object.indexBuffer.getSize(), 0, 0);
+	object.render(renderManager);
 }
 
 void RenderType::init(RenderManager& renderManager) {

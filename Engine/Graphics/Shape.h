@@ -5,7 +5,7 @@
 #include <vector>
 #include "Utils.h"
 #include "VertexBuffer.h"
-
+//TODO remove because of Mesh.h
 class Shape {
 private:
 	std::vector<Vertex> vertices;

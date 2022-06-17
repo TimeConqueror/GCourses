@@ -6,7 +6,7 @@
 
 #include "MathHelper.h"
 #include "VertexBuffer.h"
-
+//TODO remove because of Mesh.h
 Shape Shape::quad(float width, float height) {
 	return Shape(std::vector(
 		             {

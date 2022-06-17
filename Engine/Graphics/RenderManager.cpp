@@ -3,19 +3,6 @@
 #include "RenderTypes.h"
 #include "../Utils.h"
 
-static RenderType TRIANGLE_POS_COLOR{
-	L"../Shaders/MyVeryFirstShader.hlsl", 
-	VertexFormat(D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINELIST)
-	.add({
-			"POSITION",
-			DXGI_FORMAT_R32G32B32A32_FLOAT
-		 })
-	.add({
-			"COLOR",
-			DXGI_FORMAT_R32G32B32A32_FLOAT
-		 })
-};
-
 RenderManager::RenderManager(Window& window): window(window) {
 	fov = DirectX::XM_PIDIV2;
 }
@@ -124,7 +111,7 @@ void RenderManager::init(Game* game) {
 	RenderTypes::init(*this);
 }
 
-int RenderManager::addRenderable(RenderableObject* object) {
+int RenderManager::addRenderable(IRenderable* object) {
 	object->init(*this);
 	renderObjects.push_back(object);
 
@@ -133,7 +120,7 @@ int RenderManager::addRenderable(RenderableObject* object) {
 	return renderObjects.size();
 }
 
-void RenderManager::addNamedRenderable(std::string name, RenderableObject* object) {
+void RenderManager::addNamedRenderable(std::string name, IRenderable* object) {
 	object->init(*this);
 	namedRenderObjects.insert(std::pair(name, object));
 	std::cout << "Added named render object: '" << name << "'" << std::endl;

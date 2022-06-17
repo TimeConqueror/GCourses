@@ -1,5 +1,6 @@
 #pragma once
-#include "Graphics/RenderableObject.h"
+#include "Graphics/Shape.h"
+#include "Graphics/Renderables/RenderableObject.h"
 
 class PlaneComponent : public RenderableObject {
 public:

@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <directxmath.h>
 #include <SimpleMath.h>
 #include "../Utils.h"
@@ -36,6 +37,7 @@ class VertexBuffer: public Buffer {
 private:
 	std::vector<VERTEX> elements;
 public:
+	VertexBuffer(VertexBuffer&& other) = default;
 	VertexBuffer(std::vector<VERTEX> elements);
 
 	virtual HRESULT init(ID3D11Device* device) override;

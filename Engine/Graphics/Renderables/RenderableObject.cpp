@@ -1,4 +1,4 @@
-#include "RenderManager.h"
+#include "../RenderManager.h"
 #include "RenderableObject.h"
 
 using Matrix = DirectX::SimpleMath::Matrix;
@@ -14,21 +14,19 @@ RenderableObject::RenderableObject(RenderType* renderType, Shape&& shape) :
 void RenderableObject::init(RenderManager& renderManager) {
 	vertexBuffer.init(renderManager.getDevice());
 	indexBuffer.init(renderManager.getDevice());
-	constantBuffer.init(renderManager.getDevice());
+	BaseRenderable::init(renderManager);
 }
 
-void RenderableObject::transform(RenderManager& renderManager, Matrix& data) {
-	constantBuffer.update(renderManager, &data);
+void RenderableObject::render(RenderManager& renderManager) {
+	transformation = transformation * Matrix::CreateFromQuaternion(rotation) * Matrix::CreateScale(scale);
+	BaseRenderable::render(renderManager);
+
+	vertexBuffer.push(renderManager);
+	indexBuffer.push(renderManager);
+
+	renderManager.getContext()->DrawIndexed(indexBuffer.getSize(), 0, 0);
 }
 
-void RenderableObject::prepare(RenderManager& renderManager) {
-	auto camera = renderManager.getCamera();
-
-	auto wvp = Matrix::CreateFromQuaternion(rotation) * Matrix::CreateScale(scale) * Matrix::CreateTranslation(pos) * camera->viewMatrix * camera->projMatrix;
-
-	transform(renderManager, wvp);
-}
-
-RenderType* RenderableObject::getRenderType() {
+RenderType* RenderableObject::getRenderType() const {
 	return renderType;
 }

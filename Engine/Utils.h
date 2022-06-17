@@ -1,9 +1,7 @@
 #pragma once
 #include <d3d.h>
 #include <d3d11.h>
-#include <random>
-#include <stdexcept>
-#include <vector>
+#include <limits>
 #include <sstream>
 
 typedef unsigned int uint;
@@ -24,6 +22,14 @@ public:
 	}
 
 	float coerceInRange(float number, float min, float max) {
-		return min(max(number, min), max);
+		if(number > max) {
+			number = max;
+		}
+
+		if(number < min) {
+			number = min;
+		}
+
+		return number;
 	}
 };

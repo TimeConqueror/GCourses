@@ -151,7 +151,6 @@
     <ClInclude Include="SolarDemo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Body.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Planet.cpp" />

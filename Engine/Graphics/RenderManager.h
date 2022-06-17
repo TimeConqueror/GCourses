@@ -7,8 +7,8 @@
 
 #include "Camera.h"
 #include "CameraHandler.h"
-#include "RenderableObject.h"
 #include "Window.h"
+#include "Renderables/IRenderable.h"
 
 namespace WRL = Microsoft::WRL;
 
@@ -29,8 +29,8 @@ private:
 
 	Camera* camera = nullptr;
 	CameraHandler* cameraHandler = nullptr;
-	std::vector<RenderableObject*> renderObjects;
-	std::unordered_map<std::string, RenderableObject*> namedRenderObjects;
+	std::vector<IRenderable*> renderObjects;
+	std::unordered_map<std::string, IRenderable*> namedRenderObjects;
 
 public:
 	float fov;
@@ -39,8 +39,8 @@ public:
 	RenderManager(Window& window);
 	void init(Game* game);
 	void render(float partialTick);
-	int addRenderable(RenderableObject* object);
-	void addNamedRenderable(std::string name, RenderableObject* object);
+	int addRenderable(IRenderable* object);
+	void addNamedRenderable(std::string name, IRenderable* object);
 	void removeNamedRenderable(std::string name);
 
 	ID3D11Device* getDevice();

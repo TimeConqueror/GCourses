@@ -5,6 +5,7 @@
 #include "../Utils.h"
 #include "VertexFormat.h"
 
+class IRenderable;
 class RenderManager;
 class RenderableObject;
 
@@ -22,7 +23,7 @@ public:
 	RenderType(RenderType&& other) noexcept = default;
 	RenderType& operator=(RenderType&& other) noexcept = default;
 
-	void render(RenderManager& renderManager, RenderableObject& object);
+	void render(RenderManager& renderManager, IRenderable& object);
 	void init(RenderManager& renderManager);
 	void pushShaders(RenderManager& renderManager);
 private:
