@@ -35,9 +35,6 @@ private:
 
 	Sampler sampler;
 
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> testTexture;
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> testTextureView;
-
 public:
 	float fov;
 	bool orthographic = false;

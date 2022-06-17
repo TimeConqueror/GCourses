@@ -112,43 +112,6 @@ void RenderManager::init(Game* game) {
 	cameraHandler = new CameraHandler(game, camera);
 
 	RenderTypes::init(*this);
-
-	CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
-	bool iswic2 = false;
-	auto pWIC = DirectX::GetWICFactory(iswic2);
-
-	DirectX::TexMetadata metadata{};
-	DirectX::ScratchImage image;
-	std::cout << std::filesystem::current_path() << std::endl;
-	std::ifstream myfile;
-	myfile.open("Assets/thaumatorium.png");
-	if(myfile)
-	{
-		std::cout << "file exists";
-	}
-	else
-	{
-		std::cout << "file doesn't exist";
-	}
-	
-	Utils::checkValid(LoadFromWICFile(
-		L"Assets/thaumatorium.png",
-		DirectX::WIC_FLAGS_NONE,
-		&metadata,
-		image));
-
-	Utils::checkValid(CreateTextureEx(
-		getDevice(),
-		image.GetImages(),
-		image.GetImageCount(),
-		image.GetMetadata(),
-		D3D11_USAGE_DEFAULT,
-		D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-		0, 0, false,
-		reinterpret_cast<ID3D11Resource**>(testTexture.GetAddressOf())));
-
-	device->CreateShaderResourceView(testTexture.Get(), nullptr, &testTextureView);
-	//image.Release();
 }
 
 int RenderManager::addRenderable(IRenderable* object) {
@@ -212,7 +175,6 @@ void RenderManager::beginRender() {
 void RenderManager::render(float partialTick) {
 	cameraHandler->update(partialTick);
 	beginRender();
-	getContext()->PSSetShaderResources(0, 1, testTextureView.GetAddressOf());
 
 	for (auto& it : renderObjects) {
 		it->getRenderType()->render(*this, *it);

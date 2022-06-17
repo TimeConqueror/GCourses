@@ -160,6 +160,7 @@
     <ClCompile Include="Graphics\Renderables\RenderableObject.cpp" />
     <ClCompile Include="Graphics\RenderManager.cpp" />
     <ClCompile Include="Graphics\RenderType.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="Graphics\Shape.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Rand.h" />
     <ClInclude Include="Graphics\RenderTypes.h" />
     <ClInclude Include="Graphics\Sampler.h" />
+    <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertex2f.h" />

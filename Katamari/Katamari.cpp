@@ -21,37 +21,18 @@ Planet parentChildChild = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sp
 Planet parentChildChildChild1 = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(5, 50, 50, 0xFF44FFFF), DirectX::SimpleMath::Vector3::Backward, 3000, 24.0F, 1000, 20, 10);
 Planet parentChildChildChild2 = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(6, 50, 50, 0x00AAAAFF), DirectX::SimpleMath::Vector3::Forward, 1000, 17.0F, 500, 40, 90);
 
+Texture thaumatoriumTexture;
 auto meshes = Mesh::load("Assets/thaumatorium.obj");
 auto thaumatoriumModel = Model(&RenderTypes::TRIANGLELIST_POS_UV, meshes);
 void Katamari::init() {
 	std::cout << "Initializing..." << std::endl;
 	RenderManager& renderManager = getRenderManager();
 
-	//renderManager.addRenderable(&sun);
-	//renderManager.addRenderable(&earth);
-	//renderManager.addRenderable(&moon);
-	//renderManager.addRenderable("zzz", zom);
-	//renderManager.addRenderable("sphrer", ñom);
-
-	//renderManager.addRenderable(&parent);
-	//renderManager.addRenderable(&parentChild);
-	//renderManager.addRenderable(&parentChildChild);
-	//renderManager.addRenderable(&parentChildChildChild1);
-	//renderManager.addRenderable(&parentChildChildChild2);
-
 	renderManager.getCameraHandler()->cameraPos = DirectX::SimpleMath::Vector3(50, 50, 150);
 
-	//sun.addChild(&earth);
-	//earth.addChild(&moon);
-
-	//sun.addChild(&parent);
-	//parent.addChild(&parentChild);
-	//parentChild.addChild(&parentChildChild);
-	//parentChildChild.addChild(&parentChildChildChild1);
-	//parentChildChild.addChild(&parentChildChildChild2);
-
+	thaumatoriumTexture = TextureDefinition(L"Assets/thaumatorium.png").bake(renderManager);
 	thaumatoriumModel.init(renderManager);
-	renderManager.addRenderable(new ModelBasedRenderable(&thaumatoriumModel));
+	renderManager.addRenderable(new ModelBasedRenderable(&thaumatoriumModel, &thaumatoriumTexture));
 	renderManager.addRenderable(&plane);
 }
 

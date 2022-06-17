@@ -12,5 +12,6 @@ RenderType* ModelBasedRenderable::getRenderType() const {
 
 void ModelBasedRenderable::render(RenderManager& renderManager) {
 	BaseRenderable::render(renderManager);
+	texture->pushAsShaderResource(renderManager, 0);
 	model->render(renderManager);
 }

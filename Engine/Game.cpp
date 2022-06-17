@@ -10,7 +10,8 @@ Game::Game(LPCWSTR name, uint width, uint height, int ticksPerSecond):
 	window(inputController, name, width, height),
 	renderManager(window),
 	timer(ticksPerSecond) {
-	
+	CoInitializeEx(nullptr, COINITBASE_MULTITHREADED); // for texture loading
+
 	setInstance(this);
 	Rand::init();
 };
