@@ -7,8 +7,10 @@
 
 #include "Camera.h"
 #include "CameraHandler.h"
+#include "Light.h"
 #include "Sampler.h"
 #include "Window.h"
+#include "ConstantBuffer.h"
 #include "Renderables/IRenderable.h"
 
 namespace WRL = Microsoft::WRL;
@@ -34,8 +36,8 @@ private:
 	std::unordered_map<std::string, IRenderable*> namedRenderObjects;
 
 	Sampler sampler;
-
 public:
+	ConstantBuffer<Light> lightBuffer;
 	float fov;
 	bool orthographic = false;
 

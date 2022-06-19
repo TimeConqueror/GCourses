@@ -7,18 +7,28 @@ void BaseRenderable::init(RenderManager& renderManager) {
 	constantBuffer.init(renderManager.getDevice());
 }
 
-void BaseRenderable::transform(RenderManager& renderManager, DirectX::SimpleMath::Matrix& data) {
+void BaseRenderable::transform(RenderManager& renderManager, Transform& data) {
 	constantBuffer.update(renderManager, &data);
 }
 
 void BaseRenderable::render(RenderManager& renderManager) {
 	auto camera = renderManager.getCamera();
 
-	auto wvp = transformation * Matrix::CreateTranslation(pos) * camera->viewMatrix * camera->projMatrix;
+	applyTransformation();
 
-	transform(renderManager, wvp);
+	Transform transformData{
+		transformation,
+		transformation * camera->viewMatrix * camera->projMatrix,
+		transformation.Transpose().Invert()
+	};
+
+	transform(renderManager, transformData);
 
 	transformation = Matrix::Identity;
 
-	constantBuffer.push(renderManager);
+	constantBuffer.pushForVertexShader(renderManager);
+}
+
+void BaseRenderable::applyTransformation() {
+	transformation *= Matrix::CreateTranslation(pos);
 }

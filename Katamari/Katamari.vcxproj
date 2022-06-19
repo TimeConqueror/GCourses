@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="ITickable.h" />
     <ClInclude Include="Main.h" />

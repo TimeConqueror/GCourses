@@ -26,11 +26,28 @@ RenderType RenderTypes::TRIANGLELIST_POS_COLOR {
 		 })
 };
 
-RenderType RenderTypes::TRIANGLELIST_POS_UV{
+// RenderType RenderTypes::TRIANGLELIST_POS_UV{
+// 	L"Assets/ModelShader.hlsl",
+// 	VertexFormat(D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+// 	.add({
+// 			"POSITION",
+// 			DXGI_FORMAT_R32G32B32_FLOAT
+// 		 })
+// 	.add({
+// 			"TEXCOORD",
+// 			DXGI_FORMAT_R32G32_FLOAT
+// 		 })
+// };
+
+RenderType RenderTypes::TRIANGLELIST_POS_NORMAL_UV{
 	L"Assets/ModelShader.hlsl",
 	VertexFormat(D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	.add({
 			"POSITION",
+			DXGI_FORMAT_R32G32B32_FLOAT
+		 })
+	.add({
+			"NORMAL",
 			DXGI_FORMAT_R32G32B32_FLOAT
 		 })
 	.add({
@@ -56,5 +73,6 @@ void RenderTypes::init(RenderManager& renderManager) {
 	LINELIST_POS_COLOR.init(renderManager);
 	TRIANGLELIST_POS_COLOR.init(renderManager);
 	TRIANGLESTRIP_POS_COLOR.init(renderManager);
-	TRIANGLELIST_POS_UV.init(renderManager);
+	// TRIANGLELIST_POS_UV.init(renderManager);
+	TRIANGLELIST_POS_NORMAL_UV.init(renderManager);
 }

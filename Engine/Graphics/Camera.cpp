@@ -39,7 +39,7 @@ DirectX::SimpleMath::Vector3 Camera::getUpVector() const {
 //TODO OPTIMIZE END
 
 void Camera::update() {
-	auto renderManager = Game::getInstance()->getRenderManager();
+	RenderManager& renderManager = Game::getInstance()->getRenderManager();
 
 	if(renderManager.orthographic) {
 		projMatrix = DirectX::SimpleMath::Matrix::CreateOrthographic(

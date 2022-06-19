@@ -12,7 +12,6 @@ void RenderType::render(RenderManager& renderManager, IRenderable& object) {
 	//renderManager.getContext()->RSGetState(&oldState);
 	//renderManager.getContext()->RSGetState(&oldState);
 	pushShaders(renderManager);//TODO move outside to render many same-arch objects
-
 	object.render(renderManager);
 }
 

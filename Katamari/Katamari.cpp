@@ -1,5 +1,6 @@
 #include "Katamari.h"
 
+#include "Actor.h"
 #include "PlaneComponent.h"
 #include "Planet.h"
 #include "../Engine/Keyboard.h"
@@ -22,22 +23,22 @@ Planet parentChildChildChild1 = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Sha
 Planet parentChildChildChild2 = Planet(&RenderTypes::TRIANGLELIST_POS_COLOR, Shape::sphere(6, 50, 50, 0x00AAAAFF), DirectX::SimpleMath::Vector3::Forward, 1000, 17.0F, 500, 40, 90);
 
 Texture thaumatoriumTexture;
-auto meshes = Mesh::load("Assets/thaumatorium.obj");
-auto thaumatoriumModel = Model(&RenderTypes::TRIANGLELIST_POS_UV, meshes);
+auto meshes = Mesh::load("Assets/Skull.obj");
+auto thaumatoriumModel = Model(&RenderTypes::TRIANGLELIST_POS_NORMAL_UV, meshes);
 void Katamari::init() {
 	std::cout << "Initializing..." << std::endl;
 	RenderManager& renderManager = getRenderManager();
 
 	renderManager.getCameraHandler()->cameraPos = DirectX::SimpleMath::Vector3(50, 50, 150);
 
-	thaumatoriumTexture = TextureDefinition(L"Assets/thaumatorium.png").bake(renderManager);
+	thaumatoriumTexture = TextureDefinition(L"Assets/Skull.jpg").bake(renderManager);
 	thaumatoriumModel.init(renderManager);
-	renderManager.addRenderable(new ModelBasedRenderable(&thaumatoriumModel, &thaumatoriumTexture));
+	renderManager.addRenderable(new Actor(&thaumatoriumModel, &thaumatoriumTexture, {}));
 	renderManager.addRenderable(&plane);
 }
 
 void Katamari::addPlanet(Planet* planet) {
-	auto renderManager = getRenderManager();
+	RenderManager& renderManager = getRenderManager();
 	renderManager.addRenderable(planet);
 	//entities.push_back(planet);
 }

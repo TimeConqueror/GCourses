@@ -19,11 +19,11 @@ Game::Game(LPCWSTR name, uint width, uint height, int ticksPerSecond):
 void Game::initInternals() {
 	window.init();
 
-	try {
+	// try {
 		renderManager.init(this);
-	} catch (RenderException& e) {
-		throw std::runtime_error("Render System Initialization Error. Error Code: " + e.errorCode);
-	}
+	// } catch (RenderException& e) {
+	// 	throw std::runtime_error("Render System Initialization Error. Error Code: " + e.errorCode);
+	// }
 }
 
 void Game::run() {

@@ -10,7 +10,8 @@ public:
 	static RenderType LINELIST_POS_COLOR;
 	static RenderType TRIANGLELIST_POS_COLOR;
 	static RenderType TRIANGLESTRIP_POS_COLOR;
-	static RenderType TRIANGLELIST_POS_UV;
+	// static RenderType TRIANGLELIST_POS_UV;
+	static RenderType TRIANGLELIST_POS_NORMAL_UV;
 
 	static void init(RenderManager& renderManager);
 };

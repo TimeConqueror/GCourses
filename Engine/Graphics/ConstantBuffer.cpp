@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SimpleMath.h>
 
+#include "Renderables/ModelBasedRenderable.h"
+
 //constant buffer is only 16-byte aligned?
 template<typename DATA>
 ConstantBuffer<DATA>::ConstantBuffer() : Buffer(sizeof(DATA) + (16 - sizeof(DATA) % 16)) {
@@ -18,18 +20,18 @@ HRESULT ConstantBuffer<DATA>::init(ID3D11Device* device) {
 	desc.MiscFlags = 0;
 	desc.StructureByteStride = 0;
 	desc.ByteWidth = size;
-
 	return device->CreateBuffer(&desc, 0, buffer.GetAddressOf());
+
 }
 
 template<typename DATA>
-void ConstantBuffer<DATA>::push(RenderManager& renderManager) {
-	push(renderManager, 0);
-}
-
-template<typename DATA>
-void ConstantBuffer<DATA>::push(RenderManager& renderManager, uint slot) {
+void ConstantBuffer<DATA>::pushForVertexShader(RenderManager& renderManager, uint slot) {
 	renderManager.getContext()->VSSetConstantBuffers(slot, 1, buffer.GetAddressOf());
+}
+
+template<typename DATA>
+void ConstantBuffer<DATA>::pushForPixelShader(RenderManager& renderManager, uint slot) {
+	renderManager.getContext()->PSSetConstantBuffers(slot, 1, buffer.GetAddressOf());
 }
 
 template<typename DATA>
@@ -49,3 +51,6 @@ HRESULT ConstantBuffer<DATA>::update(RenderManager& renderManager, DATA* data) {
 }
 
 template class ConstantBuffer<DirectX::SimpleMath::Matrix>;
+template class ConstantBuffer<Light>;
+template class ConstantBuffer<Material>;
+template class ConstantBuffer<Transform>;

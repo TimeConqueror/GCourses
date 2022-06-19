@@ -11,6 +11,7 @@
 
 struct PTVertex {
 	DirectX::SimpleMath::Vector3 pos = DirectX::SimpleMath::Vector3::Zero;
+	DirectX::SimpleMath::Vector3 normal = DirectX::SimpleMath::Vector3::Zero;
 	DirectX::SimpleMath::Vector2 uv = DirectX::SimpleMath::Vector2::Zero;
 
 	PTVertex(const PTVertex& other) = default;
@@ -18,20 +19,11 @@ struct PTVertex {
 	PTVertex& operator=(const PTVertex& other) = default;
 	PTVertex& operator=(PTVertex&& other) noexcept = default;
 
-	PTVertex(const DirectX::SimpleMath::Vector3& pos, const DirectX::SimpleMath::Vector2& uv)
-		: pos(pos),
-		uv(uv) {
+	PTVertex() {
 	}
-
-	PTVertex(float x, float y, float z, float u, float v) :pos(x, y, z), uv(u,v) {
-
-	}
-
-	PTVertex() {}
 };
 
-class Mesh
-{
+class Mesh {
 private:
 	std::vector<PTVertex> vertices;
 	std::vector<uint> indexes;
@@ -57,7 +49,7 @@ public:
 			std::cout << importer.GetErrorString() << std::endl;
 			return meshes;
 		}
-		
+
 		parseNode(meshes, scene, scene->mRootNode);
 		return meshes;
 	}
@@ -66,41 +58,43 @@ private:
 	static void parseNode(std::vector<Mesh>& meshes, const aiScene* scene, const aiNode* node) {
 		for (uint i = 0; i < node->mNumMeshes; i++) {
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			meshes.push_back(parseMesh(scene, mesh));
+			meshes.push_back(parseMesh(mesh));
 		}
-		
+
 		for (uint i = 0; i < node->mNumChildren; i++) {
 			parseNode(meshes, scene, node->mChildren[i]);
 		}
 	}
-	
-	static Mesh parseMesh(const aiScene* scene, const aiMesh* mesh) {
+
+	static Mesh parseMesh(const aiMesh* mesh) {
 		std::vector<PTVertex> vertices;
 		std::vector<uint> indices;
-	
+
 		for (uint i = 0; i < mesh->mNumVertices; i++) {
 			PTVertex vertex;
 			vertex.pos = DirectX::SimpleMath::Vector3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-		
+
 			if (mesh->mTextureCoords[0] != nullptr) {
-				vertex.uv = DirectX::SimpleMath::Vector2(mesh->mTextureCoords[0][i].x,mesh->mTextureCoords[0][i].y);
+				vertex.uv = DirectX::SimpleMath::Vector2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
 			}
-			else {
-				vertex.uv = DirectX::SimpleMath::Vector2(0.0f, 0.0f);
+
+			if (mesh->HasNormals()) {
+				vertex.normal = DirectX::SimpleMath::Vector3{
+					mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z
+				};
 			}
-		
+
 			vertices.push_back(vertex);
 		}
-		
+
 		for (uint i = 0; i < mesh->mNumFaces; i++) {
-			const aiFace face = mesh->mFaces[i];
-		
+			const auto face = mesh->mFaces[i];
+
 			for (uint j = 0; j < face.mNumIndices; j++) {
 				indices.push_back(face.mIndices[j]);
 			}
 		}
-	
+
 		return Mesh(vertices, indices);
 	}
 };
-

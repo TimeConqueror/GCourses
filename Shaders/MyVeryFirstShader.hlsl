@@ -1,5 +1,7 @@
 cbuffer cBuffer : register(b0) {
-	row_major float4x4 mat;
+	row_major float4x4 world;
+	row_major float4x4 worldProjTransform;
+	row_major float4x4 invertedWorldTransform;
 }
 
 struct VS_INPUT
@@ -17,7 +19,7 @@ struct PS_INPUT
 PS_INPUT VSMain(VS_INPUT input)
 {//1
 	PS_INPUT output;
-	output.pos = mul(input.pos, mat);
+	output.pos = mul(input.pos, worldProjTransform);
 	output.col = input.col;
 	return output;
 	//2

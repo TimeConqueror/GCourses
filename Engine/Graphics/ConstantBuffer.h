@@ -7,8 +7,8 @@ class ConstantBuffer: public Buffer {
 public:
 	ConstantBuffer();
 	virtual HRESULT init(ID3D11Device* device) override;
-	virtual void push(RenderManager& renderManager) override;
-	void push(RenderManager& renderManager, uint slot);
+	void pushForVertexShader(RenderManager& renderManager, uint slot = 0);
+	void pushForPixelShader(RenderManager& renderManager, uint slot = 0);
 
 	HRESULT update(RenderManager& renderManager, DATA* data);
 };
