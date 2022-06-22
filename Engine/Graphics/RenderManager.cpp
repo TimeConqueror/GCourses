@@ -10,6 +10,8 @@
 #include <filesystem>
 #include <fstream>
 
+#include "Game.h"
+
 RenderManager::RenderManager(Window& window): window(window), sampler(D3D11_FILTER_MIN_MAG_MIP_LINEAR, 0) {
 	fov = DirectX::XM_PIDIV2;
 }
@@ -177,7 +179,7 @@ void RenderManager::beginRender() {
 }
 
 void RenderManager::render(float partialTick) {
-	cameraHandler->update(partialTick);
+	cameraHandler->update(Game::getInstance()->player, partialTick);
 	beginRender();
 
 	for (auto& it : renderObjects) {

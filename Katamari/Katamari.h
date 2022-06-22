@@ -16,10 +16,8 @@ public:
     Katamari(uint screenWidth, uint screenHeight);
 protected:
     void init() override;
-    void addPlanet(Planet* planet);
     void tick() override;
 private:
-    void handleWinState();
     void handleInput();
 };
 

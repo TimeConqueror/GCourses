@@ -18,8 +18,6 @@ private:
 	Texture* texture;
 	Material material;
 
-	DirectX::SimpleMath::Vector3 pos;
-
 	ConstantBuffer<Material> materialBuffer;
 public:
 	explicit ModelBasedRenderable(Model* model, Texture* texture, Material material)

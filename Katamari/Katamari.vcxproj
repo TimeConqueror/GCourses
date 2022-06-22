@@ -150,12 +150,14 @@
     <ClInclude Include="PlaneComponent.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Katamari.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Katamari.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

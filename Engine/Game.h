@@ -16,6 +16,8 @@ private:
 	RenderManager renderManager;
 	Timer timer;
 public:
+	BaseRenderable* player = nullptr;
+
 	Game(LPCWSTR name, uint width, uint height, int ticksPerSecond = 60);
 
 	static Game* getInstance();

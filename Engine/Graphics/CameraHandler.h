@@ -2,6 +2,7 @@
 #include <SimpleMath.h>
 #include "Camera.h"
 #include "MathHelper.h"
+#include "Renderables/BaseRenderable.h"
 
 class Game;
 
@@ -19,7 +20,7 @@ public:
 	DirectX::SimpleMath::Vector3 cameraPos;
 
 	CameraHandler(Game* game, Camera* camera);
-	void update(float partialTick);
+	void update(const BaseRenderable* trackingObject, float partialTick);
 private:
 	void handleMouseMove();
 };
