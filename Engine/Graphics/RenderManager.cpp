@@ -152,6 +152,10 @@ CameraHandler* RenderManager::getCameraHandler() {
 	return cameraHandler;
 }
 
+Window* RenderManager::getWindow() {
+	return &window;
+}
+
 void RenderManager::beginRender() {
 	context->ClearState();
 
@@ -181,6 +185,8 @@ void RenderManager::beginRender() {
 void RenderManager::render(float partialTick) {
 	cameraHandler->update(Game::getInstance()->player, partialTick);
 	beginRender();
+
+
 
 	for (auto& it : renderObjects) {
 		it->getRenderType()->render(*this, *it);

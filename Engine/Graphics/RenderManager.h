@@ -54,6 +54,7 @@ public:
 
 	Camera* getCamera();
 	CameraHandler* getCameraHandler();
+	Window* getWindow();
 private:
 	HRESULT initSwapChain();
 	HRESULT initDepthBuffer();
