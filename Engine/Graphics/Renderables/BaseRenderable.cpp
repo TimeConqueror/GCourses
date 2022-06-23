@@ -16,17 +16,21 @@ void BaseRenderable::render(RenderManager& renderManager) {
 
 	applyTransformation();
 
+	Matrix lightViewProj = Matrix::Identity;
+
 	Transform transformData{
 		transformation,
 		transformation * camera->viewMatrix * camera->projMatrix,
-		transformation.Transpose().Invert()
+		transformation.Transpose().Invert(),
+		transformation * lightViewProj
 	};
 
 	transform(renderManager, transformData);
 
+	constantBuffer.pushForVertexShader(renderManager);
+
 	transformation = Matrix::Identity;
 
-	constantBuffer.pushForVertexShader(renderManager);
 }
 
 void BaseRenderable::applyTransformation() {

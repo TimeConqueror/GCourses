@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\DirectionalLightSource.cpp" />
     <ClCompile Include="Graphics\Renderables\BaseRenderable.cpp" />
     <ClCompile Include="Graphics\CameraHandler.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Graphics\Renderables\RenderableObject.cpp" />
     <ClCompile Include="Graphics\RenderManager.cpp" />
     <ClCompile Include="Graphics\RenderType.cpp" />
+    <ClCompile Include="Graphics\ShadowMap.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="InputController.cpp" />
@@ -175,6 +177,8 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graphics\DirectionalLightSource.h" />
+    <ClInclude Include="Graphics\LightData.h" />
     <ClInclude Include="Graphics\Renderables\BaseRenderable.h" />
     <ClInclude Include="Graphics\CameraHandler.h" />
     <ClInclude Include="Graphics\Camera.h" />
@@ -186,6 +190,7 @@
     <ClInclude Include="Graphics\RenderBuffers.h" />
     <ClInclude Include="Graphics\RenderManager.h" />
     <ClInclude Include="Graphics\RenderType.h" />
+    <ClInclude Include="Graphics\ShadowMap.h" />
     <ClInclude Include="Graphics\VertexBuffer.h" />
     <ClInclude Include="Graphics\VertexFormat.h" />
     <ClInclude Include="InputController.h" />

@@ -41,7 +41,7 @@ public:
 
 	static std::vector<Mesh> load(const std::string& path) {
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_FlipWindingOrder);
 
 		std::vector<Mesh> meshes;
 

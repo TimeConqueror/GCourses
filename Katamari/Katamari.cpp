@@ -18,12 +18,15 @@ RenderableObject plane = PlaneComponent();
 Texture skullTexture;
 Texture bananaTexture;
 Texture appleTexture;
+Texture dartboardTexture;
 auto skullMesh = Mesh::load("Assets/Skull.obj");
 auto bananaMesh = Mesh::load("Assets/Banana.obj");
 auto appleMesh = Mesh::load("Assets/Apple.obj");
+auto boardMesh = Mesh::load("Assets/board2.obj");
 auto skullModel = Model(&RenderTypes::TRIANGLELIST_POS_NORMAL_UV, skullMesh);
 auto bananaModel = Model(&RenderTypes::TRIANGLELIST_POS_NORMAL_UV, bananaMesh);
 auto appleModel = Model(&RenderTypes::TRIANGLELIST_POS_NORMAL_UV, appleMesh);
+auto dartboardModel = Model(&RenderTypes::TRIANGLELIST_POS_NORMAL_UV, boardMesh);
 
 Actor* banana1;
 Actor* banana2;
@@ -38,17 +41,25 @@ void Katamari::init() {
 	skullTexture = TextureDefinition(L"Assets/Skull.jpg").bake(renderManager);
 	bananaTexture = TextureDefinition(L"Assets/Banana.png").bake(renderManager);
 	appleTexture = TextureDefinition(L"Assets/Apple.png").bake(renderManager);
+	dartboardTexture = TextureDefinition(L"Assets/board2.jpg").bake(renderManager);
 	skullModel.init(renderManager);
 	bananaModel.init(renderManager);
 	appleModel.init(renderManager);
+	dartboardModel.init(renderManager);
 	banana1 = new Actor(&bananaModel, &bananaTexture, {});
 	banana2 = new Actor(&bananaModel, &bananaTexture, {});
 	apple1 = new Actor(&appleModel, &appleTexture, {});
 	addActor(banana1, 100, 0, 10, 10);
 	addActor(banana2, -100, 0, 17, 15);
 	addActor(apple1, 100, 100, 0.5, 20);
-	renderManager.addRenderable(new Actor(&skullModel, &skullTexture, {}));
+
+	auto board = new ModelBasedRenderable(&dartboardModel, &dartboardTexture, {});
+	board->scale = 10;
+	board->pos = DirectX::SimpleMath::Vector3(0, -40, 0);
+	board->rotation = DirectX::SimpleMath::Quaternion::CreateFromRotationMatrix(DirectX::SimpleMath::Matrix::CreateRotationX(Math::toRadians(-90)));
+	renderManager.addRenderable(board);
 	renderManager.addRenderable(&plane);
+	renderManager.addRenderable(new ModelBasedRenderable(&skullModel, &skullTexture, {}));
 
 	player = new Player(&skullModel, &skullTexture, {});
 	static_cast<Actor*>(player)->collisionRadius = 12;

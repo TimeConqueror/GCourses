@@ -13,6 +13,14 @@ RenderType* ModelBasedRenderable::getRenderType() const {
 	return model->getRenderType();
 }
 
+Texture* ModelBasedRenderable::getTexture() const {
+	return texture;
+}
+
+Model* ModelBasedRenderable::getModel() const {
+	return model;
+}
+
 void ModelBasedRenderable::render(RenderManager& renderManager) {
 	BaseRenderable::render(renderManager);
 	texture->pushAsShaderResource(renderManager, 0);

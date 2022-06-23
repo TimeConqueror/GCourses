@@ -25,6 +25,8 @@ public:
 	}
 	void init(RenderManager& renderManager) override;
 	RenderType* getRenderType() const override;
+	Texture* getTexture() const;
+	Model* getModel() const;
 protected:
 	void render(RenderManager& renderManager) override;
 };

@@ -11,6 +11,7 @@
 #include "Sampler.h"
 #include "Window.h"
 #include "ConstantBuffer.h"
+#include "LightData.h"
 #include "Renderables/IRenderable.h"
 
 namespace WRL = Microsoft::WRL;
@@ -37,7 +38,7 @@ private:
 
 	Sampler sampler;
 public:
-	ConstantBuffer<Light> lightBuffer;
+	ConstantBuffer<LightData> lightBuffer;
 	float fov;
 	bool orthographic = false;
 

@@ -8,6 +8,7 @@ struct Transform {
 	DirectX::SimpleMath::Matrix worldTransform;
 	DirectX::SimpleMath::Matrix worldProjTransform;
 	DirectX::SimpleMath::Matrix invertedTransposedWorldTransform;
+	DirectX::SimpleMath::Matrix worldProjFromLight;
 };
 
 class BaseRenderable : public IRenderable

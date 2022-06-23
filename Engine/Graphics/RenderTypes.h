@@ -12,6 +12,7 @@ public:
 	static RenderType TRIANGLESTRIP_POS_COLOR;
 	// static RenderType TRIANGLELIST_POS_UV;
 	static RenderType TRIANGLELIST_POS_NORMAL_UV;
+	static RenderType SHADOW_MAP;
 
 	static void init(RenderManager& renderManager);
 };

@@ -28,4 +28,11 @@ public:
 	void init(RenderManager& renderManager);
 	void render(RenderManager& renderManager);
 	RenderType* getRenderType() const;
+	std::vector<VertexBuffer<PTVertex>>& getVertexBuffers() {
+		return vertexBuffers;
+	}
+
+	std::vector<IndexBuffer>& getIndexBuffers() {
+		return indexBuffers;
+	}
 };

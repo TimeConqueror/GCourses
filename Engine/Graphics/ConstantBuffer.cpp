@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SimpleMath.h>
 
+#include "LightData.h"
+#include "ShadowMap.h"
 #include "Renderables/ModelBasedRenderable.h"
 
 //constant buffer is only 16-byte aligned?
@@ -51,6 +53,7 @@ HRESULT ConstantBuffer<DATA>::update(RenderManager& renderManager, DATA* data) {
 }
 
 template class ConstantBuffer<DirectX::SimpleMath::Matrix>;
-template class ConstantBuffer<Light>;
+template class ConstantBuffer<LightData>;
 template class ConstantBuffer<Material>;
 template class ConstantBuffer<Transform>;
+//template class ConstantBuffer<ShadowMapShaderTransform>;

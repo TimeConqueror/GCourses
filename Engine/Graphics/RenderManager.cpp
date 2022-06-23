@@ -173,7 +173,7 @@ void RenderManager::beginRender() {
 	context->ClearDepthStencilView(depthView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0F, 0);
 
 	sampler.push(*this);
-	Light light{cameraHandler->cameraPos,  {0.0f, -1.0f, 0.0f},  {1.0f, 1.0f, 1.0f}};
+	LightData light{cameraHandler->cameraPos,  {0.0f, -1.0f, 0.0f},  {1.0f, 1.0f, 1.0f}};
 	lightBuffer.update(*this, &light);
 	lightBuffer.pushForPixelShader(*this, 2);
 }
