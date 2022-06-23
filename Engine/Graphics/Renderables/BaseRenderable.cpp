@@ -30,5 +30,7 @@ void BaseRenderable::render(RenderManager& renderManager) {
 }
 
 void BaseRenderable::applyTransformation() {
+	transformation *= Matrix::CreateScale(scale, scale, scale);
+	transformation *= Matrix::CreateFromQuaternion(rotation);
 	transformation *= Matrix::CreateTranslation(pos);
 }

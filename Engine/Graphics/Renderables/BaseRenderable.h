@@ -14,6 +14,9 @@ class BaseRenderable : public IRenderable
 {
 public:
 	DirectX::SimpleMath::Vector3 pos;
+	float scale = 1;
+	DirectX::SimpleMath::Quaternion rotation;
+
 	ConstantBuffer<Transform> constantBuffer;
 	DirectX::SimpleMath::Matrix transformation = DirectX::SimpleMath::Matrix::Identity;
 	void init(RenderManager& renderManager) override;

@@ -146,6 +146,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="ITickable.h" />
+    <ClInclude Include="LocalTransform.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PlaneComponent.h" />
     <ClInclude Include="Planet.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LocalTransform.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Planet.cpp" />
