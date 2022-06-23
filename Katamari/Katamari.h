@@ -15,7 +15,7 @@ public:
     Katamari(uint screenWidth, uint screenHeight);
 protected:
     void init() override;
-    void addActor(Actor* actor, float x, float z, float scale);
+    void addActor(Actor* actor, float x, float z, float scale, float collisionRadius);
     void tick() override;
 private:
     void handleInput();

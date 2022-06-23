@@ -44,20 +44,22 @@ void Katamari::init() {
 	banana1 = new Actor(&bananaModel, &bananaTexture, {});
 	banana2 = new Actor(&bananaModel, &bananaTexture, {});
 	apple1 = new Actor(&appleModel, &appleTexture, {});
-	addActor(banana1, 100, 0, 10);
-	addActor(banana2, -100, 0, 17);
-	addActor(apple1, 100, 100, 0.5);
+	addActor(banana1, 100, 0, 10, 10);
+	addActor(banana2, -100, 0, 17, 15);
+	addActor(apple1, 100, 100, 0.5, 20);
 	renderManager.addRenderable(new Actor(&skullModel, &skullTexture, {}));
 	renderManager.addRenderable(&plane);
 
 	player = new Player(&skullModel, &skullTexture, {});
+	static_cast<Actor*>(player)->collisionRadius = 12;
 	renderManager.addRenderable(player);
 }
 
-void Katamari::addActor(Actor* actor, float x, float z, float scale) {
+void Katamari::addActor(Actor* actor, float x, float z, float scale, float collisionRadius) {
 	this->entities.push_back(actor);
 	actor->pos = DirectX::SimpleMath::Vector3(x, 0, z);
 	actor->scale = scale;
+	actor->collisionRadius = collisionRadius;
 	getRenderManager().addRenderable(actor);
 }
 

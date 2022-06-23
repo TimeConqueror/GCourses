@@ -17,8 +17,10 @@ void Player::tick() {
 void Player::attemptCatchNearbies() {
 	Katamari* game = static_cast<Katamari*>(Game::getInstance()->getInstance());
 	for (Actor* entity : game->entities) {
-		if(areColliding(*this, *entity)) {
-			this->addChild(entity);
+		if(areColliding(*this, *entity) && canStitch(entity)) {
+			if(this->addChild(entity)) {
+				this->grow(entity);
+			}
 		}
 	}
 }
@@ -29,6 +31,14 @@ double Player::distanceBetween(const Actor& a, const Actor& b) {
 
 bool Player::areColliding(const Actor& a, const Actor& b) {
 	return distanceBetween(a, b) < (a.collisionRadius + b.collisionRadius);
+}
+
+bool Player::canStitch(const Actor* target) const {
+	return this->collisionRadius > target->collisionRadius;
+}
+
+void Player::grow(const Actor* stitchedActor) {
+	collisionRadius += stitchedActor->collisionRadius * 0.5;
 }
 
 void Player::handleMovement() {

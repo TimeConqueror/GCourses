@@ -13,17 +13,15 @@ public:
 	DirectX::SimpleMath::Vector3 relPos;
 	bool bound = false;
 	LocalTransform localTransform;
-	RenderableObject collisionSphere;
 
 	Actor(Model* model, Texture* texture, const Material& material)
 		: ModelBasedRenderable(model, texture, material),
-	localTransform(nullptr),
-	collisionSphere(&RenderTypes::LINELIST_POS_COLOR, Shape::sphere(collisionRadius, 10, 10, 0xFF00FFFF)) {
+		  localTransform(nullptr) {
 		localTransform = LocalTransform(this);
 	}
 
 	void tick() override;
-	void addChild(Actor* child);
+	bool addChild(Actor* child);
 	void init(RenderManager& renderManager) override;
 protected:
 	void render(RenderManager& renderManager) override;
@@ -75,8 +73,8 @@ inline void Actor::tick() {
 	}
 }
 
-inline void Actor::addChild(Actor* child) {
-	if (child->bound) return;
+inline bool Actor::addChild(Actor* child) {
+	if (child->bound) return false;
 
 	using namespace DirectX::SimpleMath;
 
@@ -96,15 +94,18 @@ inline void Actor::addChild(Actor* child) {
 	// child->rotation = child->rotation / this->rotation;
 
 	child->bound = true;
+	return true;
 }
 
 inline void Actor::init(RenderManager& renderManager) {
 	ModelBasedRenderable::init(renderManager);
-	collisionSphere.init(renderManager);
 }
 
 inline void Actor::render(RenderManager& renderManager) {
 	ModelBasedRenderable::render(renderManager);
+
+	RenderableObject collisionSphere(&RenderTypes::LINELIST_POS_COLOR, Shape::sphere(collisionRadius, 10, 10, 0xFF00FFFF));
+	collisionSphere.init(renderManager);
 
 	collisionSphere.pos = this->localTransform.getAbsolutePosition();
 	collisionSphere.rotation = this->localTransform.getAbsoluteRotation();

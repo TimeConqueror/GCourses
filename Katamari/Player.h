@@ -28,5 +28,7 @@ protected:
 private:
 	double distanceBetween(const Actor& a, const Actor& b);
 	bool areColliding(const Actor& a, const Actor& b);
+	bool canStitch(const Actor* target) const;
+	void grow(const Actor* stitchedActor);
 };
 
